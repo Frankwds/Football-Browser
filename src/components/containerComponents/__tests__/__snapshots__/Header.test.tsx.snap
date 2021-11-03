@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing Header snapshot should be same as previous 1`] = `
+<div
+  id="header"
+>
+  <h2
+    className="chakra-heading css-176yoig"
+  >
+    WebDev Project3 - Football browser
+  </h2>
+  <img
+    alt="football icon"
+    className="imgR"
+    src="football.jpg"
+  />
+</div>
+`;
