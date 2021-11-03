@@ -89,8 +89,8 @@ const Game: React.FC<Props> = (props) => {
   });
   if (loading) return <p>Loading Ratings...</p>;
   if (error) return <p>StupidFrankRatingError :(</p>;
-  mutateFunction({ variables: { gameId: props.id } });
-  return (
+
+    return (
     <Box
       d="flex"
       flexDirection="column"
