@@ -2,7 +2,7 @@
   "name": "prosjekt-3",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/prosjekt3/",
+  "homepage": "/prosjekt4/",
   "dependencies": {
     "@apollo/client": "^3.4.16",
     "@chakra-ui/gatsby-plugin": "^2.0.1",
