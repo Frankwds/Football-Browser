@@ -103,7 +103,7 @@ Examples are found in Comments.tsx, GameModal.tsx, Game.tsx, FilterBox.tsx and m
 
 
 # File tree
-
+```bash
 src/
 ┣ apolloExample/
 ┃ ┣ ApolloExample.tsx
@@ -152,3 +152,4 @@ src/
 ┣ react-app-env.d.ts
 ┣ reportWebVitals.ts
 ┗ setupTests.ts
+```
