@@ -104,52 +104,51 @@ Examples are found in Comments.tsx, GameModal.tsx, Game.tsx, FilterBox.tsx and m
 
 # File tree
 
-# src
-
-* [apolloExample/](.\src\apolloExample)
-  * [ApolloExample.tsx](.\src\apolloExample\ApolloExample.tsx)
-  * [ExchangeRates.tsx](.\src\apolloExample\ExchangeRates.tsx)
-* [components/](.\src\components)
-  * [containerComponents/](.\src\components\containerComponents)
-    * [__tests__/](.\src\components\containerComponents\__tests__)
-      * [__snapshots__/](.\src\components\containerComponents\__tests__\__snapshots__)
-        * [Footer.test.tsx.snap](.\src\components\containerComponents\__tests__\__snapshots__\Footer.test.tsx.snap)
-        * [Header.test.tsx.snap](.\src\components\containerComponents\__tests__\__snapshots__\Header.test.tsx.snap)
-      * [Content.test.tsx](.\src\components\containerComponents\__tests__\Content.test.tsx)
-      * [Footer.test.tsx](.\src\components\containerComponents\__tests__\Footer.test.tsx)
-      * [Header.test.tsx](.\src\components\containerComponents\__tests__\Header.test.tsx)
-    * [Content.tsx](.\src\components\containerComponents\Content.tsx)
-    * [Footer.tsx](.\src\components\containerComponents\Footer.tsx)
-    * [Header.tsx](.\src\components\containerComponents\Header.tsx)
-  * [gameComponents/](.\src\components\gameComponents)
-    * [Comments.tsx](.\src\components\gameComponents\Comments.tsx)
-    * [Game.tsx](.\src\components\gameComponents\Game.tsx)
-    * [GameModal.tsx](.\src\components\gameComponents\GameModal.tsx)
-    * [Rating.tsx](.\src\components\gameComponents\Rating.tsx)
-  * [queryComponents/](.\src\components\queryComponents)
-    * [GamesList.tsx](.\src\components\queryComponents\GamesList.tsx)
-  * [sortingComponents/](.\src\components\sortingComponents)
-    * [FilterBox.tsx](.\src\components\sortingComponents\FilterBox.tsx)
-    * [PageChanger.tsx](.\src\components\sortingComponents\PageChanger.tsx)
-    * [SearchBar.tsx](.\src\components\sortingComponents\SearchBar.tsx)
-  * [style.css](.\src\components\style.css)
-* [redux/](.\src\redux)
-  * [searchFilter/](.\src\redux\searchFilter)
-    * [filterSearchReducer.ts](.\src\redux\searchFilter\filterSearchReducer.ts)
-    * [searchFilterTypes.ts](.\src\redux\searchFilter\searchFilterTypes.ts)
-  * [index.ts](.\src\redux\index.ts)
-  * [StateType.ts](.\src\redux\StateType.ts)
-* [resources/](.\src\resources)
-  * [football.jpg](.\src\resources\football.jpg)
-  * [gitlab-icon.png](.\src\resources\gitlab-icon.png)
-  * [react-icon.png](.\src\resources\react-icon.png)
-* [App.css](.\src\App.css)
-* [App.test.tsx](.\src\App.test.tsx)
-* [App.tsx](.\src\App.tsx)
-* [e2e.test.tsx](.\src\e2e.test.tsx)
-* [index.css](.\src\index.css)
-* [index.tsx](.\src\index.tsx)
-* [logo.svg](.\src\logo.svg)
-* [react-app-env.d.ts](.\src\react-app-env.d.ts)
-* [reportWebVitals.ts](.\src\reportWebVitals.ts)
-* [setupTests.ts](.\src\setupTests.ts)
+src/
+┣ apolloExample/
+┃ ┣ ApolloExample.tsx
+┃ ┗ ExchangeRates.tsx
+┣ components/
+┃ ┣ containerComponents/
+┃ ┃ ┣ __tests__/
+┃ ┃ ┃ ┣ __snapshots__/
+┃ ┃ ┃ ┃ ┣ Footer.test.tsx.snap
+┃ ┃ ┃ ┃ ┗ Header.test.tsx.snap
+┃ ┃ ┃ ┣ Content.test.tsx
+┃ ┃ ┃ ┣ Footer.test.tsx
+┃ ┃ ┃ ┗ Header.test.tsx
+┃ ┃ ┣ Content.tsx
+┃ ┃ ┣ Footer.tsx
+┃ ┃ ┗ Header.tsx
+┃ ┣ gameComponents/
+┃ ┃ ┣ Comments.tsx
+┃ ┃ ┣ Game.tsx
+┃ ┃ ┣ GameModal.tsx
+┃ ┃ ┗ Rating.tsx
+┃ ┣ queryComponents/
+┃ ┃ ┗ GamesList.tsx
+┃ ┣ sortingComponents/
+┃ ┃ ┣ FilterBox.tsx
+┃ ┃ ┣ PageChanger.tsx
+┃ ┃ ┗ SearchBar.tsx
+┃ ┗ style.css
+┣ redux/
+┃ ┣ searchFilter/
+┃ ┃ ┣ filterSearchReducer.ts
+┃ ┃ ┗ searchFilterTypes.ts
+┃ ┣ index.ts
+┃ ┗ StateType.ts
+┣ resources/
+┃ ┣ football.jpg
+┃ ┣ gitlab-icon.png
+┃ ┗ react-icon.png
+┣ App.css
+┣ App.test.tsx
+┣ App.tsx
+┣ e2e.test.tsx
+┣ index.css
+┣ index.tsx
+┣ logo.svg
+┣ react-app-env.d.ts
+┣ reportWebVitals.ts
+┗ setupTests.ts
