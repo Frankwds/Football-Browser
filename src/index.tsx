@@ -13,6 +13,8 @@ import allReducers from "./redux";
 
 // Import Apollo Server from specified uri adress
 const client = new ApolloClient({
+  /* To run the server locally, uncomment here: */
+  //uri:"http://localhost:4000/graphql",
   uri: "http://it2810-50.idi.ntnu.no:4000/graphql",
   cache: new InMemoryCache(),
 });

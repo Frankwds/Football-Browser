@@ -111,6 +111,7 @@ module.exports = {
         const gameMeta = { id_odsp: gameID, clicks: 0, comments: [], ratings: [rating] };
         try {
           let response = await UserData.create(gameMeta)
+          
           return response
         } catch(e) {
           return e.message}
@@ -130,20 +131,20 @@ module.exports = {
       }
     },
   
-  commentOnGame:  (_, { gameID, comment }, ___) => {
+  commentOnGame: async (_, { gameID, comment }, ___) => {
         //Checking if the game has data connected to it, creates an item if it does not.
-        let userData =  UserData.findOne({id_odsp : gameID})
+        let userData =  await UserData.findOne({id_odsp : gameID})
         if (userData == null){
           const gameMeta = { id_odsp: gameID, clicks: 0, comments: [comment], ratings: [] };
           try {
-            let response =  UserData.create(gameMeta)
+            let response = await UserData.create(gameMeta)
             return response
-          } catch(e) {
-            return e.message}
+          } catch(e) 
+            {return e.message}
         }
         //If it has data, update it with another comment.
         try {
-          let response = UserData.findOneAndUpdate(
+          let response = await UserData.findOneAndUpdate(
             {id_odsp : gameID}, // Find game
             {$push: {comments: comment}}, // Increment by one
             {new: true} // Return new object after incrementing

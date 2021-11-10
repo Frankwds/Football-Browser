@@ -1,5 +1,5 @@
 import Rating from "./Rating";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import GameModal from "./GameModal";
 import {
@@ -15,6 +15,7 @@ import {
 const GETUSERDATA = gql`
   mutation GetUserDataByGameIDMutation($gameId: String!) {
     GetUserDataByGameID(gameID: $gameId) {
+      __typename
       ratings
       id_odsp
       comments
@@ -57,9 +58,20 @@ const Game: React.FC<Props> = (props) => {
     }
     return sumRating / numRatings;
   };
-
+  const [mutateFunction, { loading, error, data }] = useMutation(GETUSERDATA, {
+    variables: {
+      gameId: props.id,
+    },
+    onCompleted: (data) => {
+      setInitialUserData( {data} );
+    },
+  });
   //Initialising user data
   const setInitialUserData = (callbackData: any) => {
+    
+
+   
+    
     let ratingsArray = callbackData.data.GetUserDataByGameID.ratings;
     let meanRating = calcMeanRating(ratingsArray);
     setRating(meanRating);
@@ -79,18 +91,17 @@ const Game: React.FC<Props> = (props) => {
   const callbackOnComment = (comments: string[]) => {
     setComments(comments);
   };
-  const [mutateFunction, { loading, error, data }] = useMutation(GETUSERDATA, {
-    variables: {
-      gameId: props.id,
-    },
-    onCompleted: (data) => {
-      setInitialUserData({ data });
-    },
-  });
-  if (loading) return <p>Loading Ratings...</p>;
-  if (error) return <p>StupidFrankRatingError :(</p>;
 
-    return (
+  // Extract 
+
+
+    useEffect(() => {
+      mutateFunction()
+        
+    }, [mutateFunction]);
+    if (loading) return <p>Loading Ratings...</p>;
+    if (error) return <p>StupidFrankRatingError :(</p>;
+  return (
     <Box
       d="flex"
       flexDirection="column"

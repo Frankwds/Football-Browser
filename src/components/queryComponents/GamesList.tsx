@@ -84,16 +84,6 @@ const GameData: React.FC<Props> = ({ page, pageSize, func }) => {
     (state: StateType) => state.searchQueries.searchQueries.sort
   );
 
-  if (param) {
-    console.log(param);
-  } else {
-    console.log("sort is undefined");
-  }
-  if (accending) {
-    console.log(accending);
-  } else {
-    console.log("acc is undefined");
-  }
 
   // Automatically queries again on initial render and change in the searchFilter store.
   const { loading, error, data } = useQuery(GETGAMEDATA, {
@@ -115,6 +105,7 @@ const GameData: React.FC<Props> = ({ page, pageSize, func }) => {
   if (error) return <p>404: Data not found :(</p>;
 
   func(() => data?.GetGamesFilterList.num);
+
 
   return data?.GetGamesFilterList.games.map(
     ({ id_odsp, ht, at, country, league }: any) => (
