@@ -16,18 +16,32 @@ describe('The Home Page', () => {
       })
   })
   describe('Pagination and Sort', () => {
-    it('Is default at page 1', () => {
-        
+    beforeEach(() => {
+      cy.visit('http://localhost:3000/prosjekt4')
     })
+
+    it('Is default at page 1', () => {
+        cy.contains("Page: 1 of")
+    })
+
     it('Can browse pages', () => {
-        
+      
+      waitForGameData();
+
+      cy.wait("@getGames")
+      cy.get(`[aria-label="Go page front"]`).click().click().click()
+      cy.contains("Page: 4 of")
+/*       cy.get(`[aria-label="Go page back"]`).click().click().click()
+      cy.contains("Page: 1 of") */
     })
 
     it('Can not browse to less than page 1', () => {
-        
+      cy.get(`[aria-label="Go page back"]`).click().click().click().click().click().click()
+      cy.contains("Page: 1 of")
     })
+
     it('Can not browse past last page', () => {
-        
+      //This must be tested after filter functions, to get less pages.
     })
 
     it('Sorts by Date', () => {
@@ -110,3 +124,25 @@ I should test the following:
 10. That that rating works.
 
 */
+
+function waitForGameData() {
+  const URL = "http://it2810-50.idi.ntnu.no:4000/graphql"
+  cy.intercept("POST", URL, (req) =>{
+    if(req.body.operationName === "GetGamesFilterList"){
+      req.alias = "getGames"
+      req.continue()
+    }
+  })
+  cy.visit('http://localhost:3000/prosjekt4')
+}
+
+function waitForDetailedGameData() {
+  const URL = "http://it2810-50.idi.ntnu.no:4000/graphql"
+  cy.intercept("POST", URL, (req) =>{
+    if(req.body.operationName === "GetGameDetailsByID"){
+      req.alias = "gameDetails"
+      req.continue()
+    }
+  })
+  cy.visit('http://localhost:3000/prosjekt4')
+}
