@@ -103,6 +103,7 @@ const Game: React.FC<Props> = (props) => {
     if (error) return <p>StupidFrankRatingError :(</p>;
   return (
     <Box
+    id = {props.id}
       d="flex"
       flexDirection="column"
       bg="lightGray"
@@ -145,7 +146,7 @@ const Game: React.FC<Props> = (props) => {
           <ModalHeader>
             {props.homeTeam} vs {props.awayTeam}{" "}
           </ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton id="CloseModal"/>
           {isOpen && (
             <GameModal
               id={props.id}

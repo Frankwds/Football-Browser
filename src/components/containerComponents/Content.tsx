@@ -55,6 +55,7 @@ const Content: React.FC<Props> = (props) => {
             accent={props.accent}
           />
           <GamesList
+            key = "gameList"
             page={page}
             pageSize={pagesize}
             setLastPageFunc={setLastPage}
