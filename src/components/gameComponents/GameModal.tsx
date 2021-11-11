@@ -18,7 +18,7 @@ type Props = {
 };
 
 const GETSINGLEGAME = gql`
-  query Query($gameID: String!) {
+  query GetGameDetailsByID($gameID: String!) {
     GetGameByID(gameID: $gameID) {
       date
       season

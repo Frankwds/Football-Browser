@@ -33,6 +33,14 @@ const Content: React.FC<Props> = (props) => {
   const [lastPage, setLastPage] = useState(0);
   const pagesize = 3;
 
+  const pageChanger = (nextPage: number) => {
+    if (nextPage < 0 || nextPage >= Math.ceil(lastPage / pagesize)){}
+    else
+      setPage(nextPage);
+  };
+
+
+
   return (
     <div className={"Content"}>
       <Grid templateColumns="repeat(2, 1fr)" gap={10}>
@@ -42,14 +50,14 @@ const Content: React.FC<Props> = (props) => {
             page={page}
             lastpage={lastPage}
             pageSize={pagesize}
-            func={setPage}
+            func={pageChanger}
             color={props.color}
             accent={props.accent}
           />
           <GamesList
             page={page}
             pageSize={pagesize}
-            func={setLastPage}
+            setLastPageFunc={setLastPage}
             color={props.color}
             accent={props.accent}
           />

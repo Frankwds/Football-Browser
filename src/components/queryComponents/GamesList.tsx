@@ -3,7 +3,7 @@ import Game from "./../gameComponents/Game";
 import { useSelector } from "react-redux";
 import { StateType } from "../../redux/StateType";
 const GETGAMEDATA = gql`
-  query Query(
+  query GetGamesFilterList(
     $league: String
     $country: String
     $season: String
@@ -37,7 +37,7 @@ const GETGAMEDATA = gql`
   }
 `;
 type Props = {
-  func: any;
+  setLastPageFunc: any;
   page: number;
   pageSize: number;
   color: string;
@@ -51,7 +51,7 @@ type Props = {
  * @param pageSize
  * @param color
  * @param accent
- * @param func
+ * @param setLastPageFunc
  *
  * @returns {React.FC}
  *
@@ -60,7 +60,7 @@ type Props = {
  *
  */
 
-const GameData: React.FC<Props> = ({ page, pageSize, func }) => {
+const GameData: React.FC<Props> = ({setLastPageFunc, page, pageSize  }) => {
   //Uses a hook on the values of the redux searchFilter store.
   const league = useSelector(
     (state: StateType) => state.searchQueries.searchQueries.league
@@ -104,7 +104,7 @@ const GameData: React.FC<Props> = ({ page, pageSize, func }) => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>404: Data not found :(</p>;
 
-  func(() => data?.GetGamesFilterList.num);
+  setLastPageFunc(() => data?.GetGamesFilterList.num);
 
 
   return data?.GetGamesFilterList.games.map(
