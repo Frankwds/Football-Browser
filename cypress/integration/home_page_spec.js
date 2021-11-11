@@ -15,45 +15,7 @@ describe('The Home Page', () => {
       cy.contains("Page")
       })
   })
-  describe('Pagination and Sort', () => {
-    beforeEach(() => {
-      cy.visit('http://localhost:3000/prosjekt4')
-    })
-
-    it('Is default at page 1', () => {
-        cy.contains("Page: 1 of")
-    })
-
-    it('Can browse pages', () => {
-      
-      waitForGameData();
-
-      cy.wait("@getGames")
-      cy.get(`[aria-label="Go page front"]`).click().click().click()
-      cy.contains("Page: 4 of")
-/*       cy.get(`[aria-label="Go page back"]`).click().click().click()
-      cy.contains("Page: 1 of") */
-    })
-
-    it('Can not browse to less than page 1', () => {
-      cy.get(`[aria-label="Go page back"]`).click().click().click().click().click().click()
-      cy.contains("Page: 1 of")
-    })
-
-    it('Can not browse past last page', () => {
-      //This must be tested after filter functions, to get less pages.
-    })
-
-    it('Sorts by Date', () => {
-        
-    })
-    it('Sorts by Country', () => {
-        
-    })
-    it('Sorts by League', () => {
-        
-    })
-  })
+  
 
   describe('Filter and Search', () => {
     it('Filters by League', () => {
@@ -133,7 +95,6 @@ function waitForGameData() {
       req.continue()
     }
   })
-  cy.visit('http://localhost:3000/prosjekt4')
 }
 
 function waitForDetailedGameData() {
@@ -144,5 +105,4 @@ function waitForDetailedGameData() {
       req.continue()
     }
   })
-  cy.visit('http://localhost:3000/prosjekt4')
 }

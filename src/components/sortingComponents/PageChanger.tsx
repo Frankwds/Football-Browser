@@ -134,6 +134,7 @@ const PageChanger: React.FC<Props> = ({
             <option value="league">League</option>
           </Select>
           <IconButton
+          id="sortButton"
             bg={color}
             color={accent}
             aria-label="Accending"
