@@ -79,12 +79,12 @@ const FilterBox: React.FC<Props> = ({ color, accent }) => {
         <SearchBar id="filterSeason" color={accent} type={"Season: "} get={setSeason}>
           <VisuallyHidden>Search for a Season, example 2016</VisuallyHidden>
         </SearchBar>
-        <SearchBar id="filterHT" color={accent} type={"Home Team: "} get={setHt}>
+        <SearchBar id="searchHT" color={accent} type={"Home Team: "} get={setHt}>
           <VisuallyHidden>
             Search for a home-team, example Stoke City
           </VisuallyHidden>
         </SearchBar>
-        <SearchBar id="filterAT" color={accent} type={"Away Team: "} get={setAt}>
+        <SearchBar id="searchAT" color={accent} type={"Away Team: "} get={setAt}>
           <VisuallyHidden>
             Search for a away-team, example Everton
           </VisuallyHidden>

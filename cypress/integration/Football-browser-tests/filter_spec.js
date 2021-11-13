@@ -36,7 +36,6 @@ describe('Filter', () => {
     //1. filter
     //2. sort by league - - sample and check if correct season
     //3. sort by league again - sample again and check if correct season
-
     it('Filters by Season', () => {
       //1.
       cy.get(`[id="filterSeason"]`).type("2016")
