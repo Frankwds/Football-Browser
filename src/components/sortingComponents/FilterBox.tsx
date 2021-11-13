@@ -68,28 +68,29 @@ const FilterBox: React.FC<Props> = ({ color, accent }) => {
         >
           - Filter By -
         </Box>
-        <SearchBar color={accent} type={"League: "} get={setLeague}>
+        <SearchBar id="filterLeague" color={accent} type={"League: "} get={setLeague}>
           <VisuallyHidden>Search for a League, example: l1</VisuallyHidden>
         </SearchBar>
-        <SearchBar color={accent} type={"Contry: "} get={setContry}>
+        <SearchBar id="searchCountry" color={accent} type={"Contry: "} get={setContry}>
           <VisuallyHidden>
             Search for a Country, example: england
           </VisuallyHidden>
         </SearchBar>
-        <SearchBar color={accent} type={"Season: "} get={setSeason}>
+        <SearchBar id="filterSeason" color={accent} type={"Season: "} get={setSeason}>
           <VisuallyHidden>Search for a Season, example 2016</VisuallyHidden>
         </SearchBar>
-        <SearchBar color={accent} type={"Home Team: "} get={setHt}>
+        <SearchBar id="searchHT" color={accent} type={"Home Team: "} get={setHt}>
           <VisuallyHidden>
             Search for a home-team, example Stoke City
           </VisuallyHidden>
         </SearchBar>
-        <SearchBar color={accent} type={"Away Team: "} get={setAt}>
+        <SearchBar id="searchAT" color={accent} type={"Away Team: "} get={setAt}>
           <VisuallyHidden>
             Search for a away-team, example Everton
           </VisuallyHidden>
         </SearchBar>
         <Button
+          id="filterAndSearchButton"
           border="2px"
           borderColor={accent}
           color={accent}
