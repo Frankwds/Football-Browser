@@ -1,33 +1,3 @@
-describe('Search', () => {
-    beforeEach(() => {
-        listenForGameData()
-        listenForDetailedGameData()
-        listenForUserData()
-        cy.visit('http://localhost:3000/prosjekt4')
-    })
-
-
-    it('Searches for country', () => {
-        
-    })
-    it('Searches for Home Teams', () => {
-        
-    })
-    it('Searches for Away Teams', () => {
-        
-    })
-
-
-
-
-
-
-
-
-
-
-})
-
 function listenForGameData() {
     const URL = "http://it2810-50.idi.ntnu.no:4000/graphql"
     cy.intercept("POST", URL, (req) =>{
@@ -57,3 +27,6 @@ function listenForGameData() {
       }
     })
 }
+
+
+export {listenForDetailedGameData, listenForGameData, listenForUserData}

@@ -1,14 +1,19 @@
+
+import {listenForDetailedGameData, listenForGameData} from "../../support/listenFunctions"
+
+
+
 describe('Filter', () => {
     beforeEach(() => {
         listenForGameData()
         listenForDetailedGameData()
-        listenForUserData()
         cy.visit('http://localhost:3000/prosjekt4')
     })
 
     //1. filter
-    //2. sort by league
-    //3. sort by league again
+    //2. sort by league - sample league
+    //3. sort by league again - sample again
+    //4. compare the two leages to be eqaual
     it('Filters by Leauge', () => {
       cy.get(`[id="filterLeague"]`).type("SP1")
       cy.get(`[id="filterAndSearchButton"]`).click()
@@ -28,37 +33,39 @@ describe('Filter', () => {
       })
     })
 
+    //1. filter
+    //2. sort by league - - sample and check if correct season
+    //3. sort by league again - sample again and check if correct season
+
+    it('Filters by Season', () => {
+      //1.
+      cy.get(`[id="filterSeason"]`).type("2016")
+      cy.get(`[id="filterAndSearchButton"]`).click()
+      cy.wait("@getGames")
+
+      //2.
+      cy.wait("@getGames").then((gameInterception)=>{
+        const ID = gameInterception.response.body.data.GetGamesFilterList.games[0].id_odsp;
+        cy.get(('[id="'+ ID +'"]')).click()
+      })
+      cy.wait("@gameDetails")
+      //Check:
+      cy.contains("2016")
 
 
+      cy.get(`[id="CloseModal"]`).click()
+      cy.get(`[id="sortButton"]`).click()
+
+      //3.
+      cy.wait("@getGames").then((gameInterception)=>{
+        const ID = gameInterception.response.body.data.GetGamesFilterList.games[0].id_odsp;
+        cy.get(('[id="'+ ID +'"]')).click()
+      })
+      cy.wait("@gameDetails")
+      //Check:
+      cy.contains("2016")
+      })
 
 })
 
-function listenForGameData() {
-    const URL = "http://it2810-50.idi.ntnu.no:4000/graphql"
-    cy.intercept("POST", URL, (req) =>{
-      if(req.body.operationName === "GetGamesFilterList"){
-        req.alias = "getGames"
-        req.continue()
-      }
-    })
-  }
-  
-  function listenForDetailedGameData() {
-    const URL = "http://it2810-50.idi.ntnu.no:4000/graphql"
-    cy.intercept("POST", URL, (req) =>{
-      if(req.body.operationName === "GetGameDetailsByID"){
-        req.alias = "gameDetails"
-        req.continue()
-      }
-    })
-  }
 
-  function listenForUserData() {
-    const URL = "http://it2810-50.idi.ntnu.no:4000/graphql"
-    cy.intercept("POST", URL, (req) =>{
-      if(req.body.operationName === "GetUserDataByGameIDMutation"){
-        req.alias = "userData"
-        req.continue()
-      }
-    })
-}
