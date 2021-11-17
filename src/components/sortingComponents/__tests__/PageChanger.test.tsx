@@ -29,16 +29,10 @@ afterEach(() => {
   container = null;
 });
 
-{/* <ApolloProvider client={client}>
-
-</ApolloProvider> */}
-
-
 
 describe("Testing PageChanger", () => {
   it("should render without crashing", () => {
     act(() => {
-      const div = document.createElement("div");
       ReactDOM.render(
         <Provider store={store}>
           <ChakraProvider>
@@ -53,7 +47,7 @@ describe("Testing PageChanger", () => {
           </ChakraProvider>
         </Provider>
         ,
-        div
+        container
       );
     });
   });
