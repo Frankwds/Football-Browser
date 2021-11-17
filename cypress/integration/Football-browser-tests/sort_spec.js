@@ -1,32 +1,9 @@
-describe('Pagination and Sort', () => {
+describe('Sort', () => {
     beforeEach(() => {
         listenForGameData()
         listenForDetailedGameData()
         listenForUserData()
         cy.visit('http://localhost:3000/prosjekt4')
-    })
-
-    it.skip('Is default at page 1', () => {
-        cy.contains("Page: 1 of")
-    })
-
-    it.skip('Can browse pages', () => {
-        cy.wait("@getGames")
-      
-      
-      cy.get(`[aria-label="Go page front"]`).click().click().click()
-      cy.contains("Page: 4 of")
-      cy.get(`[aria-label="Go page back"]`).click().click()
-      cy.contains("Page: 2 of")
-    })
-
-    it.skip('Can not browse to less than page 1', () => {
-      cy.get(`[aria-label="Go page back"]`).click().click().click().click().click().click()
-      cy.contains("Page: 1 of")
-    })
-
-    it.skip('Can not browse past last page', () => {
-      //This must be tested after filter functions, to get less pages.
     })
 
     it('Sorts by Date', () => {
@@ -40,37 +17,38 @@ describe('Pagination and Sort', () => {
             
             //Save the response data date from the new GameDetail Query just sent.
             cy.wait("@gameDetails").then((interception1) => {
-
+              
                 //Get the date for later comparison:
                 const dateBefore = interception1.response.body.data.GetGameByID.date
-
-                }).then((interception1) => {
+                localStorage.setItem('dateBefore', dateBefore);
+                
+                }).then(() => {
                     //Close modal
                     cy.get(`[id="CloseModal"]`).click()
                     //Click Sort
                     cy.get(`[id="sortButton"]`).click()
-                    console.log(interception1.response.body.data.GetGameByID.date);
-
-                }).then((interception1)=> {
-                    
+                }).then(()=> {
                     //Wait for new game data:
                     cy.wait("@getGames").then((gameInterception) => {
                     //Get the ID of the first game on the new list.
                     const ID = gameInterception.response.body.data.GetGamesFilterList.games[0].id_odsp;
                     //Needed to load games to page first:
                     cy.wait("@userData")
-
                     //Click the first Game on the new list of games
+                    cy.wait(200)
                     cy.get(('[id="'+ ID +'"]')).click()
-                }).then(()=>{
-
+                }).then(()=> {
                     cy.wait("@gameDetails").then((interception2) => {})
 
                 }).then((interception2)=>{
+                    const dateAfterSort = interception2.response.body.data.GetGameByID.date
+                    const dateBeforeSort = window.localStorage.getItem("dateBefore")
+
+                    var date1 = new Date(dateBeforeSort).getTime();
+                    var date2 = new Date(dateAfterSort).getTime();
                     
-                    const dateAfter = interception2.response.body.data.GetGameByID.date
-                    console.log(dateAfter);
-                        
+                  // date1 should allways be larger than date2 when sorted by date.
+                    expect(date1 > date2).to.be.true
                 })
             })
         })
@@ -80,15 +58,53 @@ describe('Pagination and Sort', () => {
 
 
 
-    it.skip('Sorts by Country', () => {
-        
+    it('Sorts by Country', () => {
+      //Sort for country
+      cy.get(`[id="selectSort"]`).select("country")
+      cy.get(`[id="sortButton"]`).click()
+
+      cy.wait("@getGames")
+      cy.wait("@getGames").then((gameInterception1) => {
+        const countryBefore = gameInterception1.response.body.data.GetGamesFilterList.games[0].country;
+
+        //Sort again
+        cy.get(`[id="sortButton"]`).click()
+        cy.wait("@getGames").then((gameInterception2) => {
+          const countryAfter = gameInterception2.response.body.data.GetGamesFilterList.games[0].country;
+          //localeCompare() does lexicographical comparison
+          //Return -1, 0 or 1.
+          const comparison = countryAfter.localeCompare(countryBefore);
+          //Returns 1 if country after (spain) is lexicographic greater than country before sort (england)
+          expect(comparison === 1).to.be.true
+        })
+
+      })
     })
-    it.skip('Sorts by League', () => {
-        
-    })
-  })
 
 
+    it('Sorts by Leauge', () => {
+      //Sort for league
+      cy.get(`[id="selectSort"]`).select("league")
+      cy.get(`[id="sortButton"]`).click()
+
+      cy.wait("@getGames")
+      cy.wait("@getGames").then((gameInterception1) => {
+        const leagueBefore = gameInterception1.response.body.data.GetGamesFilterList.games[0].league;
+
+        //Sort again
+        cy.get(`[id="sortButton"]`).click()
+        cy.wait("@getGames").then((gameInterception2) => {
+          const leagueAfter = gameInterception2.response.body.data.GetGamesFilterList.games[0].league;
+          //localeCompare() does lexicographical comparison
+          //Return -1, 0 or 1.
+          const comparison = leagueAfter.localeCompare(leagueBefore);
+          //Returns 1 if league after (spain) is lexicographic greater than league before sort (england)
+          expect(comparison === 1).to.be.true
+        })
+      })
+    })
+    
+})//For the whole describe(Sort)
 
   function listenForGameData() {
     const URL = "http://it2810-50.idi.ntnu.no:4000/graphql"
@@ -109,6 +125,7 @@ describe('Pagination and Sort', () => {
       }
     })
   }
+
   function listenForUserData() {
     const URL = "http://it2810-50.idi.ntnu.no:4000/graphql"
     cy.intercept("POST", URL, (req) =>{

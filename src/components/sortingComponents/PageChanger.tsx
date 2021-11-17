@@ -128,7 +128,7 @@ const PageChanger: React.FC<Props> = ({
           Page: {page + 1} of {Math.ceil(lastpage / pageSize)}
         </Box>
         <Center w="100%">
-          <Select value={value} onChange={handleChange} placeholder="Sort by:">
+          <Select value={value} onChange={handleChange} placeholder="Sort by:" id= "selectSort">
             <option value="date">Date</option>
             <option value="country">Country</option>
             <option value="league">League</option>
