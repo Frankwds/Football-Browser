@@ -70,17 +70,19 @@ const Comments: React.FC<Props> = (props) => {
   };
 
   return (
-    <div key={comments.length}>
+    <div id="commentComponent" key={comments.length}>
       <InputGroup size="md">
         <Input
+          testid="comment-input-field"
           border="1px solid black"
           marginRight="5px"
           placeholder="Skriv en melding"
-          value={messageInput}
+          //value={messageInput}
           onChange={(e) => setMessageInput(e.target.value)}
         ></Input>
         <InputRightElement width="6.5rem">
           <Button
+          testid = "commentButton"
             backgroundColor="teal"
             h="2rem"
             size="sm"
@@ -91,9 +93,9 @@ const Comments: React.FC<Props> = (props) => {
           </Button>
         </InputRightElement>
       </InputGroup>
-      {comments.map((comment) => {
+      {comments.map((comment, index) => {
         return (
-          <Flex key={comment}>
+          <Flex key={comment+index}>
             <Text padding="10px" borderRadius="10px" fontWeight="bold">
               {comment}
             </Text>

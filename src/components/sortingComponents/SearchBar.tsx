@@ -6,6 +6,7 @@ type Props = {
   get: (childData: string) => void;
   color: string;
   type: string;
+  id: string;
 };
 
 /**
@@ -21,7 +22,7 @@ type Props = {
  *
  */
 
-const SearchBar: React.FC<Props> = ({ get, color, type }) => {
+const SearchBar: React.FC<Props> = ({ get, color, type, id }) => {
   return (
     <InputGroup>
       <InputLeftAddon
@@ -31,6 +32,7 @@ const SearchBar: React.FC<Props> = ({ get, color, type }) => {
         border={"none"}
       />
       <Input
+        id = {id}
         onChange={(event) => get(event.currentTarget.value)}
         placeholder={"All"}
         background={"white"}
