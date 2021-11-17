@@ -73,6 +73,7 @@ const Comments: React.FC<Props> = (props) => {
     <div key={comments.length}>
       <InputGroup size="md">
         <Input
+          testid="comment-input-field"
           border="1px solid black"
           marginRight="5px"
           placeholder="Skriv en melding"
