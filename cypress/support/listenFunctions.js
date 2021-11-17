@@ -27,6 +27,15 @@ function listenForGameData() {
       }
     })
 }
+function listenForRatings() {
+  const URL = "http://it2810-50.idi.ntnu.no:4000/graphql"
+  cy.intercept("POST", URL, (req) =>{
+    if(req.body.operationName === "rateGame"){
+      req.alias = "rateGame"
+      req.continue()
+    }
+  })
+}
 
 
-export {listenForDetailedGameData, listenForGameData, listenForUserData}
+export {listenForDetailedGameData, listenForGameData, listenForUserData, listenForRatings}
