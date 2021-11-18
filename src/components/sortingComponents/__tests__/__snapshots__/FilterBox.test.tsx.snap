@@ -23,6 +23,7 @@ Array [
         </div>
         <input
           className="chakra-input css-2nurv4"
+          id="filterLeague"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
@@ -39,6 +40,7 @@ Array [
         </div>
         <input
           className="chakra-input css-2nurv4"
+          id="searchCountry"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
@@ -55,6 +57,7 @@ Array [
         </div>
         <input
           className="chakra-input css-2nurv4"
+          id="filterSeason"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
@@ -71,6 +74,7 @@ Array [
         </div>
         <input
           className="chakra-input css-2nurv4"
+          id="searchHT"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
@@ -87,6 +91,7 @@ Array [
         </div>
         <input
           className="chakra-input css-2nurv4"
+          id="searchAT"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
@@ -95,6 +100,7 @@ Array [
       </div>
       <button
         className="chakra-button css-hh65fl"
+        id="filterAndSearchButton"
         onClick={[Function]}
         type="button"
       >

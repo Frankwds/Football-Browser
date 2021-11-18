@@ -52,6 +52,7 @@ Array [
         >
           <select
             className="chakra-select css-1tc12v8"
+            id="selectSort"
             onBlur={[Function]}
             onChange={[Function]}
             onFocus={[Function]}

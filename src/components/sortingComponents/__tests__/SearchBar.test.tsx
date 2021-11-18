@@ -12,7 +12,6 @@ const acc = "rgb(0,128,128)";
 let container: any;
 const store = createStore(allReducers);
 
-
 beforeEach(() => {
   container = document.createElement("div");
   document.body.appendChild(container);
@@ -29,11 +28,10 @@ describe("Testing SearchBar", () => {
       const div = document.createElement("div");
       ReactDOM.render(
         <Provider store={store}>
-        <ChakraProvider>
-        <SearchBar color={acc} type={"test: "} get={() => {}} />
-        </ChakraProvider>
-        </Provider>
-        ,
+          <ChakraProvider>
+            <SearchBar id={"iid"} color={acc} type={"test: "} get={() => {}} />
+          </ChakraProvider>
+        </Provider>,
         container
       );
     });
@@ -42,43 +40,32 @@ describe("Testing SearchBar", () => {
   it.skip("snapshot should be same as previous", () => {
     const tree = renderer
       .create(
-      <Provider store={store}>
-        <ChakraProvider>
-          <SearchBar color={acc} type={"test: "} get={() => {}} />
-        </ChakraProvider>
-      </Provider>)
+        <Provider store={store}>
+          <ChakraProvider>
+            <SearchBar id={"iid"} color={acc} type={"test: "} get={() => {}} />
+          </ChakraProvider>
+        </Provider>
+      )
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
 
-
-
   it("should update text hook outside of component", () => {
-
-
     act(() => {
       let parentText = "";
-      function setText(text:string){
+      function setText(text: string) {
         parentText = text;
       }
       const div = document.createElement("div");
       ReactDOM.render(
         <Provider store={store}>
-        <ChakraProvider>
-        <SearchBar color={acc} type={"test: "} get={setText} />
-        </ChakraProvider>
-        </Provider>
-        ,
+          <ChakraProvider>
+            <SearchBar id={"iid"} color={acc} type={"test: "} get={setText} />
+          </ChakraProvider>
+        </Provider>,
         container
       );
-        console.log(parentText);
-        
+      console.log(parentText);
     });
   });
-
-
-
-
-  
 });
-
