@@ -12,7 +12,7 @@ interface RatingProps {
 }
 
 //Mutation query for adding comment to game
-export const RATEGAME = gql`
+const RATEGAME = gql`
   mutation rateGame($gameId: String!, $rating: Int!) {
     rateGame(gameID: $gameId, rating: $rating) {
       id_odsp
