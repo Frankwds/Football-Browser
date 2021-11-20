@@ -1,6 +1,7 @@
-import { gql, useMutation } from "@apollo/client";
-import { Box } from "@chakra-ui/react";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
+import { gql, useMutation } from "@apollo/client";
+
+import { Box } from "@chakra-ui/react";
 
 // Define type of input properties in the Rating method
 interface RatingProps {
@@ -53,7 +54,7 @@ const Rating = ({ id, rating, numReviews, callbackOnRate }: RatingProps) => {
 
   //Rendering 5 star array where stars will be filled accoriding to their numeric rating
   return (
-    <Box testid="rating-stars" d="flex" flexDirection="row" alignItems="center">
+    <Box data-testid="rating-stars" d="flex" flexDirection="row" alignItems="center">
       {Array(5)
         .fill("")
         .map((_, i) => {
@@ -91,7 +92,7 @@ const Rating = ({ id, rating, numReviews, callbackOnRate }: RatingProps) => {
             />
           );
         })}
-      <Box id="rating-stars-text" as="span" ml="2" color="gray.600" fontSize="sm">
+      <Box data-testid="rating-stars-text" as="span" ml="2" color="gray.600" fontSize="sm">
         {numReviews} review{numReviews > 1 && "s"}
       </Box>
     </Box>
