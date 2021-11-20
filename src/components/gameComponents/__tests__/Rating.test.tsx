@@ -8,6 +8,15 @@ import { createStore } from "redux";
 import allReducers from "../../../redux";
 import Rating from "../Rating";
 
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+
+
+// Import Apollo Server from specified uri adress
+const client = new ApolloClient({
+  uri: "http://localhost:4000/graphql",
+  cache: new InMemoryCache(),
+});
+
 let container: any;
 const store = createStore(allReducers);
 
@@ -21,12 +30,12 @@ afterEach(() => {
   container = null;
 });
 
-describe("Testing GameModal", () => {
-  it.skip("should render without crashing", () => {
+describe("Testing Rating", () => {
+  it("should render without crashing", () => {
     act(() => {
-      const div = document.createElement("div");
       ReactDOM.render(
-        <Provider store={store}>
+        <ApolloProvider client={client}>
+          <Provider store={store}>
           <ChakraProvider>
             <Rating
               id={"testId"}
@@ -35,11 +44,32 @@ describe("Testing GameModal", () => {
               callbackOnRate={() => {}}
             />
           </ChakraProvider>
-        </Provider>,
+          </Provider>
+        </ApolloProvider>,
         container
       );
     });
   });
+
+  it("should show one star if the only rating is one star", () => {
+    act(() => {
+      ReactDOM.render(
+        <ApolloProvider client={client}>
+          <Provider store={store}>
+          <ChakraProvider>
+            <Rating
+              id={"testId"}
+              rating={3}
+              numReviews={666}
+              callbackOnRate={() => {}}
+            />
+          </ChakraProvider>
+          </Provider>
+        </ApolloProvider>,
+        container
+      );
+    });
+  })
 
   it.skip("snapshot should be same as previous", () => {
     const tree = renderer
