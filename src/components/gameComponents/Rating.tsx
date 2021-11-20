@@ -12,7 +12,7 @@ interface RatingProps {
 }
 
 //Mutation query for adding comment to game
-const RATEGAME = gql`
+export const RATEGAME = gql`
   mutation rateGame($gameId: String!, $rating: Int!) {
     rateGame(gameID: $gameId, rating: $rating) {
       id_odsp
@@ -49,7 +49,9 @@ const Rating = ({ id, rating, numReviews, callbackOnRate }: RatingProps) => {
       externalMutation({ data });
     },
   });
+  
   if (loading) return <p>Loading Ratings...</p>;
+
   if (error) return <p>StupidFrankRatingError :(</p>;
 
   //Rendering 5 star array where stars will be filled accoriding to their numeric rating
