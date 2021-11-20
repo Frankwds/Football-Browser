@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing SearchBar snapshot should be same as previous 1`] = `
+Array [
+  <div
+    className="chakra-input__group css-4302v8"
+  >
+    <div
+      className="chakra-input__left-addon css-1en9n2p"
+    >
+      test: 
+    </div>
+    <input
+      className="chakra-input css-2nurv4"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      placeholder="All"
+    />
+  </div>,
+  <span />,
+]
+`;

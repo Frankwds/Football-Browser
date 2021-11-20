@@ -1,0 +1,132 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing FilterBox snapshot should be same as previous 1`] = `
+Array [
+  <div
+    className="css-cmwzg8"
+  >
+    <div
+      className="css-1qcq0uf"
+    >
+      <div
+        className="css-1w6p8gg"
+      >
+        - Filter By -
+      </div>
+      <div
+        className="chakra-input__group css-4302v8"
+      >
+        <div
+          className="chakra-input__left-addon css-1en9n2p"
+        >
+          League: 
+        </div>
+        <input
+          className="chakra-input css-2nurv4"
+          id="filterLeague"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          placeholder="All"
+        />
+      </div>
+      <div
+        className="chakra-input__group css-4302v8"
+      >
+        <div
+          className="chakra-input__left-addon css-1en9n2p"
+        >
+          Contry: 
+        </div>
+        <input
+          className="chakra-input css-2nurv4"
+          id="searchCountry"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          placeholder="All"
+        />
+      </div>
+      <div
+        className="chakra-input__group css-4302v8"
+      >
+        <div
+          className="chakra-input__left-addon css-1en9n2p"
+        >
+          Season: 
+        </div>
+        <input
+          className="chakra-input css-2nurv4"
+          id="filterSeason"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          placeholder="All"
+        />
+      </div>
+      <div
+        className="chakra-input__group css-4302v8"
+      >
+        <div
+          className="chakra-input__left-addon css-1en9n2p"
+        >
+          Home Team: 
+        </div>
+        <input
+          className="chakra-input css-2nurv4"
+          id="searchHT"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          placeholder="All"
+        />
+      </div>
+      <div
+        className="chakra-input__group css-4302v8"
+      >
+        <div
+          className="chakra-input__left-addon css-1en9n2p"
+        >
+          Away Team: 
+        </div>
+        <input
+          className="chakra-input css-2nurv4"
+          id="searchAT"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          placeholder="All"
+        />
+      </div>
+      <button
+        className="chakra-button css-hh65fl"
+        id="filterAndSearchButton"
+        onClick={[Function]}
+        type="button"
+      >
+        -Filter and search!
+        <svg
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          strokeWidth="0"
+          style={
+            Object {
+              "color": undefined,
+            }
+          }
+          viewBox="0 0 16 16"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+          />
+        </svg>
+        -
+      </button>
+    </div>
+  </div>,
+  <span />,
+]
+`;
