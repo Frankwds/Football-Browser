@@ -1,7 +1,5 @@
 import {listenForGameData, listenForUserData} from "../../support/listenFunctions"
 
-
-
 describe('Filter', () => {
     beforeEach(() => {
         listenForGameData()
@@ -12,12 +10,12 @@ describe('Filter', () => {
 //1. Filter and search to result in one game
 //2. See that the game contains all expected data
     it('Filters and searches', () => {
-      cy.get(`[id="filterLeague"]`).type("E0")
-      cy.get(`[id="searchCountry"]`).type("england")
-      cy.get(`[id="filterSeason"]`).type("2016")
-      cy.get(`[id="searchHT"]`).type("Everton")
-      cy.get(`[id="searchAT"]`).clear().type("Crystal Palace")
-      cy.get(`[id="filterAndSearchButton"]`).click()
+      cy.get(`[testid="filterLeague"]`).type("E0")
+      cy.get(`[testid="searchCountry"]`).type("england")
+      cy.get(`[testid="filterSeason"]`).type("2016")
+      cy.get(`[testid="searchHT"]`).type("Everton")
+      cy.get(`[testid="searchAT"]`).clear().type("Crystal Palace")
+      cy.get(`[testid="filterAndSearchButton"]`).click()
       cy.wait("@getGames")
       cy.wait("@getGames").then((gameInterception) => {
         const ID = gameInterception.response.body.data.GetGamesFilterList.games[0].id_odsp;

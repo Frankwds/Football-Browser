@@ -92,7 +92,7 @@ const FilterBox: React.FC<Props> = ({ color, accent }) => {
           </VisuallyHidden>
         </SearchBar>
         <Button
-          id="filterAndSearchButton"
+          testid="filterAndSearchButton"
           border="2px"
           borderColor={accent}
           color={accent}

@@ -1,5 +1,4 @@
-import {listenForDetailedGameData, listenForGameData, listenForUserData, listenForRatings} from "../../support/listenFunctions"
-
+import {listenForDetailedGameData, listenForGameData, listenForRatings, listenForUserData} from "../../support/listenFunctions"
 
 /// <reference types="cypress" />
 
@@ -74,15 +73,13 @@ describe('Game modal, rating and commenting', () => {
       cy.get('.Result').children().eq(1).click()
       cy.wait('@gameDetails')
       cy.wait(200)
-      cy.get('[id="rating-stars-text"]').invoke('text').then((text1) => {
+      cy.get('[data-testid="rating-stars-text"]').invoke('text').then((text1) => {
         const ratingBeforeClick = text1;
         
-        cy.get('[testid="rating-stars"]').children().eq(4).click({force: true});
+        cy.get('[data-testid="rating-stars"]').children().eq(4).click({force: true});
         cy.wait('@rateGame') 
-        cy.get('[id="rating-stars-text"]').invoke('text').then((text2) => {
+        cy.get('[data-testid="rating-stars-text"]').invoke('text').then((text2) => {
           const ratingAfterClick = text2;
-          console.log(ratingBeforeClick);
-          console.log(ratingAfterClick);
           expect(ratingBeforeClick != ratingAfterClick).to.be.true
           })
         })

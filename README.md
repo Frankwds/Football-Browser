@@ -34,10 +34,113 @@ Snipped PNG of final application:
 
 # Documentation
 
+**Automated testing of React Typescript applications**
+- In this project the group has worked on implementing systematic automated testing for backend and client from project 3. 
+
+From the process of implementing tests, many improvents have been made as a result. (litt mer her.)
+
+- Test location
+- Setup and teardown
+- Testing procedure (It)
+
+**Test location**
+Since unit tests work with specific components it makes sense to place them close to the components themselves. Because of this tests are places either one of two places:
+1) The test is placed right next to the file it is testing.
+```
+src/
+├─ App.tsx
+├─ App.test.tsx
+```
+2) The test is place in a \_\_tests\_\_ folder in the same place as the component being tested.
+```
+gameComponents/
+├─ Comments.tsx
+├─ Game.tsx
+├─ GameModal.tsx
+├─ Rating.tsx
+├─ __tests__/
+│  ├─ Comments.test.tsx
+│  ├─ Game.test.tsx
+│  ├─ GameModal.test.tsx
+│  ├─ Rating.test.tsx
+
+```
+
+**Setup and teardown**
+
+A general framework is put in place to ensuring tests run independently of eachother. A test `container` is generated from scratch before each test contained in the file. The container is appended to the `document.body` and is ready for the test to use. After the test is done the container is removed from the document body, and set to `container = null` in preparation for the next test. The code is shown in the code block below.
+
+```
+beforeEach(() => {
+  container = document.createElement("div");
+  document.body.appendChild(container);
+});
+
+afterEach(() => {
+  document.body.removeChild(container);
+  container = null;
+});
+```
+
+## Testing procedure
+Three steps are performed for every unit test.
+1) Generate test-data
+2) Render components
+3) Make assertions
+
+Test-data is first generated and structured, for example in a `JSON` object. Then, the component rendered using the `ReactDOM.render()` method. Finally assertions are made using the `jest` library, with `expect()` being used for normal assertions while `jest.fn()` is used for spies. The general flow is illustrated in the code block below.
+
+```
+it("has a descriptive name for what is tested",  () => {
+    // 1) Generate test-data
+    act( () => {
+        // 2) render component
+    }
+    // 3) make assertions
+    )
+}
+```
+
+### Generate test-data
+Test-data is generated at the start of every test.
+
+### Render components
+### Make assertions
+
+in the file it make sense to put them close to the 
+
+"smoke test"
+
 - React unit testing og Jest
-    - Test location (\_\_test\_\_ folders)
+    - BeforeEach and AfterEach.
+    - Test modularity (each test being separate from others)
+    - Describe, it, act, ReactDOM.render(), expect(), container elements, 
+    - dispatchEvent
+    - jest.fn() for checking method calls
+    - Snapshots
+    
 - Apollo-server-mockings
-- Cypress end-to-end testing
+    - MockedProvider, Mocks, 
+
+- #Cypress end-to-end testing
+Cypress is an end-to-end testing framework for web test automation which we have used to write automated web tests for the Football Browser application.
+
+Using cypress and end-2-end testing every common usecase of the application has been tested.
+The integration tests we have written covers the following:
+    - Turing pages
+    - Filtering
+    - Searching
+    - Sorting
+    - Commenting
+    - Rating
+    
+ we 
+    22
+
+    - beforeEach -> cy.intercept -> cy.visit
+    - cy.get -> cy.wait -> cy.expect
+    - cy.contains
+    - 
 
 
 ## Technology

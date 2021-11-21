@@ -1,13 +1,11 @@
 import { ApolloClient, ApolloProvider, InMemoryCache, gql } from "@apollo/client";
+import Rating, { RATEGAME } from "../Rating";
 import { getByTestId, getByText, prettyDOM } from "@testing-library/react";
 
 import { ChakraProvider } from "@chakra-ui/react";
 import { MockedProvider } from '@apollo/client/testing';
 import { Provider } from "react-redux";
-import Rating, { RATEGAME } from "../Rating";
 import ReactDOM from "react-dom";
-import TestRenderer from 'react-test-renderer';
-import { shallow} from 'enzyme'
 import { act } from "react-dom/test-utils";
 import allReducers from "../../../redux";
 import { createStore } from "redux";
