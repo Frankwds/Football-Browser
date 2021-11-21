@@ -1,6 +1,6 @@
 # Project 4 - Systematic Testing of Backend and Client
 
-In this project the group sets out to implement systematic testing of the backend and client from Project 3. Unit tests are ran using Jest. Integration tests are ran using Cypress. The server is tested using the Apollo server testing framework. 
+In this project the group sets out to implement systematic testing of the backend and client from Project 3. Unit tests are ran using Jest. Integration tests are ran using Cypress.
 
 The application allows a user to interact with a database containing football-match statistics. The user is allowed to filter, sort and search for specific matches. Moreover, the user can evaluate matches by giving stars and comments, and see how the feedback has been from other users.
 
@@ -257,17 +257,13 @@ We chose Redux over the availible Apollo Cache because it was usefull to learn a
 
 
 # File tree
-
-TODO: Add a file tree here after everything is done.
-```bash
+```
 src/
-┣ apolloExample/
-┃ ┣ ApolloExample.tsx
-┃ ┗ ExchangeRates.tsx
 ┣ components/
 ┃ ┣ containerComponents/
 ┃ ┃ ┣ __tests__/
 ┃ ┃ ┃ ┣ __snapshots__/
+┃ ┃ ┃ ┃ ┣ Content.test.tsx.snap
 ┃ ┃ ┃ ┃ ┣ Footer.test.tsx.snap
 ┃ ┃ ┃ ┃ ┗ Header.test.tsx.snap
 ┃ ┃ ┃ ┣ Content.test.tsx
@@ -277,6 +273,16 @@ src/
 ┃ ┃ ┣ Footer.tsx
 ┃ ┃ ┗ Header.tsx
 ┃ ┣ gameComponents/
+┃ ┃ ┣ __tests__/
+┃ ┃ ┃ ┣ __snapshots__/
+┃ ┃ ┃ ┃ ┣ Comments.test.tsx.snap
+┃ ┃ ┃ ┃ ┣ Game.test.tsx.snap
+┃ ┃ ┃ ┃ ┣ GameModal.test.tsx.snap
+┃ ┃ ┃ ┃ ┗ Rating.test.tsx.snap
+┃ ┃ ┃ ┣ Comments.test.tsx
+┃ ┃ ┃ ┣ Game.test.tsx
+┃ ┃ ┃ ┣ GameModal.test.tsx
+┃ ┃ ┃ ┗ Rating.test.tsx
 ┃ ┃ ┣ Comments.tsx
 ┃ ┃ ┣ Game.tsx
 ┃ ┃ ┣ GameModal.tsx
@@ -284,6 +290,14 @@ src/
 ┃ ┣ queryComponents/
 ┃ ┃ ┗ GamesList.tsx
 ┃ ┣ sortingComponents/
+┃ ┃ ┣ __tests__/
+┃ ┃ ┃ ┣ __snapshots__/
+┃ ┃ ┃ ┃ ┣ FilterBox.test.tsx.snap
+┃ ┃ ┃ ┃ ┣ PageChanger.test.tsx.snap
+┃ ┃ ┃ ┃ ┗ SearchBar.test.tsx.snap
+┃ ┃ ┃ ┣ FilterBox.test.tsx
+┃ ┃ ┃ ┣ PageChanger.test.tsx
+┃ ┃ ┃ ┗ SearchBar.test.tsx
 ┃ ┃ ┣ FilterBox.tsx
 ┃ ┃ ┣ PageChanger.tsx
 ┃ ┃ ┗ SearchBar.tsx
@@ -301,7 +315,6 @@ src/
 ┣ App.css
 ┣ App.test.tsx
 ┣ App.tsx
-┣ e2e.test.tsx
 ┣ index.css
 ┣ index.tsx
 ┣ logo.svg
@@ -309,6 +322,7 @@ src/
 ┣ reportWebVitals.ts
 ┗ setupTests.ts
 ```
+
 # Application layout
 
 Snipped PNG of final application:
