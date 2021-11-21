@@ -84,11 +84,10 @@ it("testing rating", async () => {
 })
 
 describe("Testing Rating", () => {
-  it.skip("should render without crashing", () => {
+  it("should render without crashing", () => {
     act(() => {
       ReactDOM.render(
-        <ApolloProvider client={client}>
-          <Provider store={store}>
+        <MockedProvider>
           <ChakraProvider>
             <Rating
               id={"8bTG0QD7/"}
@@ -97,8 +96,7 @@ describe("Testing Rating", () => {
               callbackOnRate={(data) => {}}
             />
           </ChakraProvider>
-          </Provider>
-        </ApolloProvider>,
+        </MockedProvider>,
         container
       );
     });
