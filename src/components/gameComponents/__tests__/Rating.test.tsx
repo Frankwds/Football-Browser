@@ -1,13 +1,9 @@
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import Rating, { RATEGAME } from "../Rating";
 import { getByTestId, getByText, prettyDOM } from "@testing-library/react";
 import { ChakraProvider } from "@chakra-ui/react";
 import { MockedProvider } from '@apollo/client/testing';
-import { Provider } from "react-redux";
 import ReactDOM from "react-dom";
 import { act } from "react-dom/test-utils";
-import allReducers from "../../../redux";
-import { createStore } from "redux";
 import renderer from "react-test-renderer";
 
 // Mock data to be returned in place of normal GraphQL data response
@@ -21,14 +17,6 @@ const mocks = [
     result: { data: { rateGame } },
   },
 ];
-
-
-const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql",
-  cache: new InMemoryCache(),
-});
-
-const store = createStore(allReducers);
 
 
 // Setup and teardown
