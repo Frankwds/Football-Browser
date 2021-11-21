@@ -17,18 +17,15 @@ let container: any;
 // Set up redux store
 const store = createStore(allReducers);
 
-
 beforeEach(() => {
   container = document.createElement("div");
   document.body.appendChild(container);
-  
 });
 
 afterEach(() => {
   document.body.removeChild(container);
   container = null;
 });
-
 
 describe("Testing PageChanger", () => {
   it("should render without crashing", () => {
@@ -45,10 +42,40 @@ describe("Testing PageChanger", () => {
               accent={acc}
             />
           </ChakraProvider>
-        </Provider>
-        ,
+        </Provider>,
         container
       );
+    });
+  });
+
+  it("should render with the correct fields", () => {
+    act(() => {
+      ReactDOM.render(
+        <Provider store={store}>
+          <ChakraProvider>
+            <PageChanger
+              page={0}
+              lastpage={10}
+              pageSize={5}
+              func={() => {}}
+              color={col}
+              accent={acc}
+            />
+          </ChakraProvider>
+        </Provider>,
+        container
+      );
+      expect(
+        container
+          .querySelector("div div button:nth-child(1)")
+          .getAttribute("aria-label")
+      ).toEqual("Go page back");
+
+      expect(
+        container
+          .querySelector("div div button:last-child")
+          .getAttribute("aria-label")
+      ).toEqual("Accending");
     });
   });
 
