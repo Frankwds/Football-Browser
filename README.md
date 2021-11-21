@@ -1,19 +1,17 @@
-# Introduction
+# Project 4 
+# Improvements and systematic testing of backend and client
 
-In this project the group sets out to create an application where the user can interact with a database containing football-match statistics. The user is allowed to filter, sort and search for specific matches. Moreover, the user can evaluate matches by giving stars and comments, and see how the feedback has been from other users.
+In this project the group sets out to implement systematic testing of the backend and client from Project 3. Unit tests are ran using Jest. Integration tests are ran using Cypress. The server is tested using the Apollo server testing framework. 
 
-# Problems
-
-We encountered difficulties migrating project 3 to the Virtual Machine. The client in the virtual machine is not able to query the server, meanwhile the same client ran locally, is able to.   
-The loading times for the data queries when the client is run locally are very slow.
+The application allows a user to interact with a database containing football-match statistics. The user is allowed to filter, sort and search for specific matches. Moreover, the user can evaluate matches by giving stars and comments, and see how the feedback has been from other users.
 
 # Setup
 
-Go to the following link [http://it2810-50.idi.ntnu.no/prosjekt3/](http://it2810-50.idi.ntnu.no/prosjekt3/) to enjoy a nice presentation of your favorite football games!
+Go to the following link [http://it2810-50.idi.ntnu.no/prosjekt4/](http://it2810-50.idi.ntnu.no/prosjekt4/) to enjoy a nice presentation of your favorite football games!
 
 The Apollo server and MongoDB database is running continuously on the Virtual Machine using the node-mode forever (https://www.npmjs.com/package/forever). Because of this there is no need to start the server locally. There have been some bugs in the deployment of the app on the VM so performance may improve by running the client locally.
 
-# Run local client
+## Run local client
 
 Navigate to root and then first run `npm install`. When complete run `npm start`. This runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -27,27 +25,28 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Go to the following link [http://it2810-50.idi.ntnu.no/prosjekt3/](http://it2810-50.idi.ntnu.no/prosjekt3/) to enjoy a nice presentation of your favorite football games!
 
-## Application layout
+# Running the tests
 
-Snipped PNG of final application:
-![app](resources/app.PNG "Application")
+To run unit tests with Jest:
+```bash
+npm test
+```
 
-# Documentation
+To run integration tests with Cypress:
+```bash
+npx cypress run
+```
+To open the cypress GUI:
+```
+npx cypress open
+```
 
-# Automated testing of React Typescript applications
 
-## Unit testing
-In this project the group has worked on implementing systematic automated testing for backend and client from project 3. Tests vary based on the utility of each components, but usually either consider typing input into input-fields, or clicking on elements. Smoke tests, and snapshot tests are also included for all components. 
+# Unit testing with Jest
+In this project the group has worked on implementing systematic automated testing for backend and client. Tests vary based on the functionality of each components, but usually either consider typing input into input-fields, or clicking on elements. Smoke tests, and snapshot tests are also included for all components. 
 
-From the process of implementing tests, many improvents have been made as a result. (litt mer her.)
 
-Done: 
-- Test location
-- Setup and teardown (beforeEach, afterEach)
-- Testing procedure (It, act, expect(), jest.fn() )
-- Mentioned smoke tests and snapshot tests
-
-**Test location**
+## Test location
 Since unit tests work with specific components it makes sense to place them close to the components themselves. Because of this tests are places either one of two places:
 1) The test is placed right next to the file it is testing.
 ```bash
@@ -70,7 +69,7 @@ gameComponents/
 
 ```
 
-**Setup and teardown**
+## Setup and teardown
 
 A general framework is put in place to ensuring tests run independently of eachother. A test `container` is generated from scratch before each test contained in the file. The container is appended to the `document.body` and is ready for the test to use. After the test is done the container is removed from the document body, and set to `container = null` in preparation for the next test. The code is shown in the code block below.
 
@@ -107,8 +106,8 @@ it("has a descriptive name for what is tested",  () => {
 
 
 
-# Data mocking
-Instead of calling the real Apollo-server configured in Project 3 mock requests are used to intercept component queries. These interceptions return dummy data that can be specifically configured for each test.
+## Data mocking
+Instead of calling the real Apollo-server configured in Project 3, MockedProvider are used to intercept component graphql queries. These interceptions return mock data that can be specifically configured for each test.
 
 To achieve this the component's normal `<ApolloProvider>` wrapping is replaced with a `<MockedProvider>`. The normal `client` element is exchanged with a `mocks` props. 
  
@@ -122,11 +121,9 @@ To achieve this the component's normal `<ApolloProvider>` wrapping is replaced w
 
 ```typescript
 ReactDom.render(
-<ApolloProvider 
-    client={client}
-    >
-    <Component />
-</ApolloProvider>
+    <ApolloProvider client={client}>
+        <Component />
+    </ApolloProvider>
 )
 ```
 
@@ -135,11 +132,9 @@ ReactDom.render(
 
 ```typescript
 ReactDom.render(
-<MockedProvider 
-    mocks={mocks}
-    >
-    <Component />
-</MockedProvider>
+    <MockedProvider mocks={mocks}>
+        <Component />
+    </MockedProvider>
 )
 ```
 
@@ -153,7 +148,7 @@ An outline for the mock configurations is specified in the code block below.
 
 ```typescript
 // Generate mockData to be returned
-const mockData = { key: 'data'};
+const mockData = { key: 'value'};
 
 // Specify which query to intercept, and for which variables
 const mocks = [
@@ -166,14 +161,14 @@ const mocks = [
   },
 ];
 ```
-As a result if the specified query is ran during tests, the mockData is returned in place of the normal GraphQL query data. This allows for running test setups without communicating with the live server.
+As a result, mockData is returned in place of normal GraphQL queried data. This allows for running test setups without communicating with the live server.
 
 # Cypress end-to-end testing
-Cypress is an end-to-end testing framework for web test automation which we have used to write automated web tests for the Football Browser application.
+Cypress is an end-to-end testing framework for web test automation which we have used to write automated integration tests for the Football Browser application.
 
 
-**Test location**
-All tests writen to cypress are stored in the same folder called Football-browsers-tests.
+## Test location
+All tests writen to cypress are stored in the same folder as shown in the code block below.
 ```bash
 cypress/
 ├─ integration/Football-browser-tests/
@@ -187,21 +182,20 @@ cypress/
 │  ├─ sort_spec.js
 ├─ support/
 │  ├─ listenFunctions.js
-
-
 ```
 ## Testing coverage
 
 Using cypress and end-2-end testing every common usecase of the application has been tested.
 - The integration tests we have written covers the following:
-    - Turing pages
+    - Opening modals
+    - Browsing pages
     - Filtering
     - Searching
     - Sorting
     - Commenting
     - Rating
 
-The functionality has been covered by a total of 22 testcases divided on 8 tests. Cypress mocks user interaction with the different elements of the page, awaits for the server to respond with data and asserts the resulting page.
+The functionality has been covered by a total of 22 testcases divided on 8 tests. Cypress mocks user interaction with the different elements of the page, awaits for the server to respond with data, and makes assertions on the resulting page.
 
 ## Setup and teardown
 
@@ -223,15 +217,15 @@ We can then explicitly wait for data, before the next page-interaction or assert
 
 ## Testing procedure
 
-Here is an example taken from the integration test performed on the user rating functionality and correctly depicts how we test with cypress.
+Here is an example taken from the integration test performed on the user rating functionality. It correctly depicts how we test with cypress.
 ```javascript
 cy.get('[data-testid="rating-stars"]').children().eq(4).click({force: true});
 cy.wait('@rateGame') 
 expect(ratingBeforeClick != ratingAfterClick).to.be.true
 ```
 The DOM elements are retrieved with id or as children elements and we assert in two ways:
-- using expects like in the exmpe above.
-- using cy.contains, asserting if certain text strings is part of the visible screen.
+- using expects like in the example above.
+- using cy.contains, asserting if certain text strings appears on the visible screen.
 
 
 
@@ -260,7 +254,7 @@ Chakra UI is a modular and simple component library providing building blocks fo
 
 The group considers the usability of third-party UI packages very valuable, and Chakra UI is therefore used extensively throughout the application. This enables faster development and more beautiful styling. This can for instance be seen in the [Game](./src/components/gameComponents/Game.tsx) functional component which solely consists of Chakra UI components.
 
-## Redux
+### Redux
 
 We have used redux to store and pass the values of the search and filter function on our website.
 The Filter passes the values in all field to our redux reducer with the action "UPDATE_SEARCH_DATA", which GameList.tsx listens to. The Query to our server is thereby automatically re-sent on any changes in these parameters.
@@ -321,3 +315,7 @@ src/
 ┣ reportWebVitals.ts
 ┗ setupTests.ts
 ```
+# Application layout
+
+Snipped PNG of final application:
+![app](resources/app.PNG "Application")
