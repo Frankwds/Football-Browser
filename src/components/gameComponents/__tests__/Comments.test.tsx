@@ -1,17 +1,34 @@
 import ReactDOM from "react-dom";
 import { act } from "react-dom/test-utils";
-import Comments from "../Comments";
+import Comments, {COMMENTONGAME} from "../Comments";
+import Rating, {RATEGAME} from "../Rating";
 import renderer from "react-test-renderer";
-import { createStore } from "redux";
-import allReducers from "../../../redux";
-import { Provider } from "react-redux";
 import { ChakraProvider } from "@chakra-ui/react";
+import { MockedProvider } from "@apollo/client/testing";
+import { prettyDOM } from "@testing-library/react";
 
-// Test <div> container
+// Mock data to be returned in place of normal GraphQL data response
+const mockData = {
+  id_odsp: '8bTG0QD7/',
+  data: {
+    commentOnGame: {
+      comments: ["Hei", "og", "hopp"]
+    }
+  }
+}
+const mocks = [
+  {
+    request: {
+      query: COMMENTONGAME,
+      variables: { gameId: '8bTG0QD7/', comment: "mockComment" },
+    },
+    result: { data: { mockData } },
+  },
+];
+
+
+// Setup and teardown
 let container: any;
-
-// Set up redux store
-const store = createStore(allReducers);
 
 beforeEach(() => {
   container = document.createElement("div");
@@ -23,19 +40,28 @@ afterEach(() => {
   container = null;
 });
 
+
 describe("Testing Comments", () => {
   it("should render without crashing", () => {
+    // Generate test data
+    const testData = {
+      id: "8bTG0QD7/",
+      comments: ["hei", "og", "hopp"],
+      testFunction : (data: any) => {}      
+    }
+    
+    // Render component
     act(() => {
       ReactDOM.render(
-        <Provider store={store}>
+        <MockedProvider>
           <ChakraProvider>
             <Comments
-              id={"testId"}
-              comments={["hei", "og", "hopp"]}
-              callbackFunc={() => {}}
+              id={testData.id}
+              comments = {testData.comments}
+              callbackFunc={testData.testFunction}
             />
           </ChakraProvider>
-        </Provider>,
+        </MockedProvider>,
         container
       );
     });
@@ -44,7 +70,7 @@ describe("Testing Comments", () => {
   it("snapshot should be same as previous", () => {
     const tree = renderer
       .create(
-        <Provider store={store}>
+        <MockedProvider>
           <ChakraProvider>
             <Comments
               id={"testId"}
@@ -52,7 +78,7 @@ describe("Testing Comments", () => {
               callbackFunc={() => {}}
             />
           </ChakraProvider>
-        </Provider>
+        </MockedProvider>
       )
       .toJSON();
     expect(tree).toMatchSnapshot();
