@@ -23,7 +23,7 @@ afterEach(() => {
 });
 
 describe("Testing SearchBar", () => {
-  it.skip("should render without crashing", () => {
+  it("should render without crashing", () => {
     act(() => {
       const div = document.createElement("div");
       ReactDOM.render(
@@ -37,7 +37,21 @@ describe("Testing SearchBar", () => {
     });
   });
 
-  it.skip("snapshot should be same as previous", () => {
+  it("should render with the correct fields", () => {
+    act(() => {
+      ReactDOM.render(
+        <Provider store={store}>
+          <ChakraProvider>
+            <SearchBar id={"iid"} color={acc} type={"test: "} get={() => {}} />
+          </ChakraProvider>
+        </Provider>,
+        container
+      );
+      expect(container.querySelector("div div").textContent).toBe("test: ");
+    });
+  });
+
+  it("snapshot should be same as previous", () => {
     const tree = renderer
       .create(
         <Provider store={store}>
