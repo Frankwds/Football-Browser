@@ -1,7 +1,4 @@
-
 import {listenForDetailedGameData, listenForGameData} from "../../support/listenFunctions"
-
-
 
 describe('Filter', () => {
     beforeEach(() => {
@@ -15,8 +12,8 @@ describe('Filter', () => {
     //3. sort by league again - sample again
     //4. compare the two leages to be eqaual
     it('Filters by Leauge', () => {
-      cy.get(`[id="filterLeague"]`).type("SP1")
-      cy.get(`[id="filterAndSearchButton"]`).click()
+      cy.get(`[testid="filterLeague"]`).type("SP1")
+      cy.get(`[testid="filterAndSearchButton"]`).click()
       cy.wait("@getGames")
       cy.wait("@getGames").then((gameInterception1) => {
         const leagueBefore = gameInterception1.response.body.data.GetGamesFilterList.games[0].league;
@@ -38,8 +35,8 @@ describe('Filter', () => {
     //3. sort by league again - sample again and check if correct season
     it('Filters by Season', () => {
       //1.
-      cy.get(`[id="filterSeason"]`).type("2016")
-      cy.get(`[id="filterAndSearchButton"]`).click()
+      cy.get(`[testid="filterSeason"]`).type("2016")
+      cy.get(`[testid="filterAndSearchButton"]`).click()
       cy.wait("@getGames")
 
       //2.

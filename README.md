@@ -1,48 +1,227 @@
-# Introduction
+# Project 4 - Systematic Testing of Backend and Client
 
-In this project the group sets out to create an application where the user can interact with a database containing football-match statistics. The user is allowed to filter, sort and search for specific matches. Moreover, the user can evaluate matches by giving stars and comments, and see how the feedback has been from other users.
+In this project the group sets out to implement systematic testing of the backend and client from Project 3. Unit tests are ran using Jest. Integration tests are ran using Cypress. The server is tested using the Apollo server testing framework. 
 
-# Problems
-
-We encountered difficulties migrating project 3 to the Virtual Machine. The client in the virtual machine is not able to query the server, meanwhile the same client ran locally, is able to.   
-The loading times for the data queries when the client is run locally are very slow.
+The application allows a user to interact with a database containing football-match statistics. The user is allowed to filter, sort and search for specific matches. Moreover, the user can evaluate matches by giving stars and comments, and see how the feedback has been from other users.
 
 # Setup
 
-Go to the following link [http://it2810-50.idi.ntnu.no/prosjekt3/](http://it2810-50.idi.ntnu.no/prosjekt3/) to enjoy a nice presentation of your favorite football games!
+## Database and Server
 
-The Apollo server and MongoDB database is running continuously on the Virtual Machine using the node-mode forever (https://www.npmjs.com/package/forever). Because of this there is no need to start the server locally. There have been some bugs in the deployment of the app on the VM so performance may improve by running the client locally.
+The Apollo server and MongoDB database is running continuously on the Virtual Machine using the node-mode forever (https://www.npmjs.com/package/forever). Because of this there is no need to start the server locally.
 
-# Run local client
+## Run local client
 
 Navigate to root and then first run `npm install`. When complete run `npm start`. This runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Run remotely
 
 Go to the following link [http://it2810-50.idi.ntnu.no/prosjekt3/](http://it2810-50.idi.ntnu.no/prosjekt3/) to enjoy a nice presentation of your favorite football games!
 
-## Figma MockUp
+# Running the tests
 
-Filter game list with diffrent string inputs or prefferably drop down menus.
-![filter](resources/filter.png "Filter game list")
+To run unit tests with Jest:
+```bash
+npm test
+```
 
-View single game in popup to see comments and rating
-![game](resources/game.png "Single game view")
+To run integration tests with Cypress:
+```bash
+npx cypress run
+```
+To open the cypress GUI:
+```
+npx cypress open
+```
 
-https://www.figma.com/file/0fI2ua3Io3TU2zJQ9HhsZ1/Webdev-pro3?node-id=0%3A1
 
-## Application layout
+# Unit testing with Jest
+In this project the group has worked on implementing systematic automated testing for backend and client. Tests vary based on the functionality of each components, but usually either consider typing input into input-fields, or clicking on elements. Smoke tests, and snapshot tests are also included for all components. 
 
-Snipped PNG of final application:
-![app](resources/app.PNG "Application")
 
-# Documentation
+## Test location
+Since unit tests work with specific components it makes sense to place them close to the components themselves. Because of this tests are places either one of two places:
+1) The test is placed right next to the file it is testing.
+```bash
+src/
+├─ App.tsx
+├─ App.test.tsx
+```
+2) The test is place in a \_\_tests\_\_ folder in the same place as the component being tested.
+```bash
+gameComponents/
+├─ Comments.tsx
+├─ Game.tsx
+├─ GameModal.tsx
+├─ Rating.tsx
+├─ __tests__/
+│  ├─ Comments.test.tsx
+│  ├─ Game.test.tsx
+│  ├─ GameModal.test.tsx
+│  ├─ Rating.test.tsx
+
+```
+
+## Setup and teardown
+
+A general framework is put in place to ensuring tests run independently of eachother. A test `container` is generated from scratch before each test contained in the file. The container is appended to the `document.body` and is ready for the test to use. After the test is done the container is removed from the document body, and set to `container = null` in preparation for the next test. The code is shown in the code block below.
+
+```typescript
+beforeEach(() => {
+  container = document.createElement("div");
+  document.body.appendChild(container);
+});
+
+afterEach(() => {
+  document.body.removeChild(container);
+  container = null;
+});
+```
+
+## Testing procedure
+Three steps are performed for every unit test.
+1) Generate test-data
+2) Render components
+3) Make assertions
+
+Test-data is first generated and structured, for example in a `JSON` object. Then, the component rendered using the `ReactDOM.render()` method. Finally assertions are made using the `jest` library, with `expect()` being used for normal assertions while `jest.fn()` is used for spies. The general flow is illustrated in the code block below.
+
+```typescript
+it("has a descriptive name for what is tested",  () => {
+    // 1) Generate test-data
+    act( () => {
+        // 2) render component
+    }
+    // 3) make assertions
+    )
+}
+```
+
+
+
+## Data mocking
+Instead of calling the real Apollo-server configured in Project 3, MockedProvider are used to intercept component graphql queries. These interceptions return mock data that can be specifically configured for each test.
+
+To achieve this the component's normal `<ApolloProvider>` wrapping is replaced with a `<MockedProvider>`. The normal `client` element is exchanged with a `mocks` props. 
+ 
+<table>
+<tr>
+<th>Apollo-server provider</th>
+<th>Mocked server provider</th>
+</tr>
+<tr>
+<td>
+
+```typescript
+ReactDom.render(
+    <ApolloProvider client={client}>
+        <Component />
+    </ApolloProvider>
+)
+```
+
+</td>
+<td>
+
+```typescript
+ReactDom.render(
+    <MockedProvider mocks={mocks}>
+        <Component />
+    </MockedProvider>
+)
+```
+
+</td>
+</tr>
+</table>
+
+The `mocks` props takes care of which GraphQL querys are to be intercepted. A piece of `mockData` is generated to be returned in place of the `data` normally returned from the query. The specific `query` and which `variables` to intercept for must also be specified.
+
+An outline for the mock configurations is specified in the code block below.
+
+```typescript
+// Generate mockData to be returned
+const mockData = { key: 'value'};
+
+// Specify which query to intercept, and for which variables
+const mocks = [
+  {
+    request: {
+      query: gql`query (...)`,
+      variables: { ... },
+    },
+    result: { data: { mockData } },
+  },
+];
+```
+As a result, mockData is returned in place of normal GraphQL queried data. This allows for running test setups without communicating with the live server.
+
+# Cypress end-to-end testing
+Cypress is an end-to-end testing framework for web test automation which we have used to write automated integration tests for the Football Browser application.
+
+
+## Test location
+All tests writen to cypress are stored in the same folder as shown in the code block below.
+```bash
+cypress/
+├─ integration/Football-browser-tests/
+│  ├─ comments_and_ratings_spec.js
+│  ├─ filter_spec.js
+│  ├─ home_page_spec.js
+│  ├─ modal_spec.js
+│  ├─ pagination_spec.js
+│  ├─ search_and_filter_spec.js
+│  ├─ search_spec.js
+│  ├─ sort_spec.js
+├─ support/
+│  ├─ listenFunctions.js
+```
+## Testing coverage
+
+Using cypress and end-2-end testing every common usecase of the application has been tested.
+- The integration tests we have written covers the following:
+    - Opening modals
+    - Browsing pages
+    - Filtering
+    - Searching
+    - Sorting
+    - Commenting
+    - Rating
+
+The functionality has been covered by a total of 22 testcases divided on 8 tests. Cypress mocks user interaction with the different elements of the page, awaits for the server to respond with data, and makes assertions on the resulting page.
+
+## Setup and teardown
+
+Each test has a similar setup: Using visit to refresh the page, effectivly setting up and tearing down between each test case.
+
+```javascript
+    beforeEach( () => {
+        listenForGameData()
+        listenForDetailedGameData()
+        listenForUserData()
+        cy.visit('http://localhost:3000/prosjekt4')
+        })
+```
+The listen functions are imported from /support/listenFunctions.js, and set up cypress to intercept Apollo graphql request
+```javascript
+ cy.wait("@getGames")
+```
+We can then explicitly wait for data, before the next page-interaction or assertion is made, thereby guaranteeing the quality of the tests.
+
+## Testing procedure
+
+Here is an example taken from the integration test performed on the user rating functionality. It correctly depicts how we test with cypress.
+```javascript
+cy.get('[data-testid="rating-stars"]').children().eq(4).click({force: true});
+cy.wait('@rateGame') 
+expect(ratingBeforeClick != ratingAfterClick).to.be.true
+```
+The DOM elements are retrieved with id or as children elements and we assert in two ways:
+- using expects like in the example above.
+- using cy.contains, asserting if certain text strings appears on the visible screen.
+
+
 
 ## Technology
 
@@ -69,40 +248,17 @@ Chakra UI is a modular and simple component library providing building blocks fo
 
 The group considers the usability of third-party UI packages very valuable, and Chakra UI is therefore used extensively throughout the application. This enables faster development and more beautiful styling. This can for instance be seen in the [Game](./src/components/gameComponents/Game.tsx) functional component which solely consists of Chakra UI components.
 
-## Web accessibility
-
-Aspects of web accessibility and universal design is demonstrated in this website.
-We have explicitly added functionality so the user can press TAB to move between all fields and buttons on the webpage.
-The games can be accessed when focused by tab and on pressing Enter, then closed the same way.
-This way, none of the features of this site is uavailable without using the cursor.
-(Tab Index and keyPress actions have been added to Game.tsx, solely to accomodate this feature.)
-
-The text size scales with the zoom function in browsers like Chrome and Safari, making everything readable to those who needs larger text.
-We have also chosen a clean and textbased design, users who have text read to them will have a parallell experience to those that read the screen themselves.
-
-All search fields have also been describes explicitly to screen readers through the chackra ui component "VisuallyHidden", which describes what the user should do with that specific search field.
-
-## Redux
+### Redux
 
 We have used redux to store and pass the values of the search and filter function on our website.
 The Filter passes the values in all field to our redux reducer with the action "UPDATE_SEARCH_DATA", which GameList.tsx listens to. The Query to our server is thereby automatically re-sent on any changes in these parameters.
 We chose Redux over the availible Apollo Cache because it was usefull to learn a library as widely used as Redux.
 
-## Context
-
-We are using the Apollo client Context and cache to store any and all queries. If the user re-visits any page or Game-detail, the data will be retrieved from the local Apollo Cache, not the server.
-
-## Design
-
-The group agreed on a simple application design to facilitate more extensive focus on the functional parts of the application.
-
-### Components
-
-We are using the Chackra UI library throughout the application to easily and elegantly create all our components.
-Examples are found in Comments.tsx, GameModal.tsx, Game.tsx, FilterBox.tsx and most all of our components.
 
 
 # File tree
+
+TODO: Add a file tree here after everything is done.
 ```bash
 src/
 ┣ apolloExample/
@@ -153,3 +309,7 @@ src/
 ┣ reportWebVitals.ts
 ┗ setupTests.ts
 ```
+# Application layout
+
+Snipped PNG of final application:
+![app](resources/app.PNG "Application")

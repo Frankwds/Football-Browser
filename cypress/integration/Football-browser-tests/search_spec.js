@@ -1,4 +1,3 @@
-
 import {listenForDetailedGameData, listenForGameData} from "../../support/listenFunctions"
 
 describe('Search', () => {
@@ -17,8 +16,8 @@ describe('Search', () => {
     */
     it('Searches for country', () => {
       cy.wait("@getGames")
-      cy.get(`[id="searchCountry"]`).type("e")
-      cy.get(`[id="filterAndSearchButton"]`).click()
+      cy.get(`[testid="searchCountry"]`).type("e")
+      cy.get(`[testid="filterAndSearchButton"]`).click()
       cy.wait("@getGames").then((gameInterception1) => {
         const country1 = gameInterception1.response.body.data.GetGamesFilterList.games[0].country;
         const country2 = gameInterception1.response.body.data.GetGamesFilterList.games[1].country;
@@ -28,8 +27,8 @@ describe('Search', () => {
         expect(country3.toLowerCase().includes("e")).to.be.true
       })
 
-      cy.get(`[id="searchCountry"]`).clear().type("eng")
-      cy.get(`[id="filterAndSearchButton"]`).click()
+      cy.get(`[testid="searchCountry"]`).clear().type("eng")
+      cy.get(`[testid="filterAndSearchButton"]`).click()
       cy.wait("@getGames").then((gameInterception1) => {
         const country1 = gameInterception1.response.body.data.GetGamesFilterList.games[0].country;
         const country2 = gameInterception1.response.body.data.GetGamesFilterList.games[1].country;
@@ -44,8 +43,8 @@ describe('Search', () => {
 
     it('Searches for Home Teams', () => {
       cy.wait("@getGames")
-      cy.get(`[id="searchHT"]`).type("E")
-      cy.get(`[id="filterAndSearchButton"]`).click()
+      cy.get(`[testid="searchHT"]`).type("E")
+      cy.get(`[testid="filterAndSearchButton"]`).click()
       cy.wait("@getGames").then((gameInterception1) => {
         const homeTeam1 = gameInterception1.response.body.data.GetGamesFilterList.games[0].ht;
         const homeTeam2 = gameInterception1.response.body.data.GetGamesFilterList.games[1].ht;
@@ -55,8 +54,8 @@ describe('Search', () => {
         expect(homeTeam3.toLowerCase().includes("e")).to.be.true
       })
 
-      cy.get(`[id="searchHT"]`).clear().type("Everton")
-      cy.get(`[id="filterAndSearchButton"]`).click()
+      cy.get(`[testid="searchHT"]`).clear().type("Everton")
+      cy.get(`[testid="filterAndSearchButton"]`).click()
       cy.wait("@getGames").then((gameInterception1) => {
         const homeTeam1 = gameInterception1.response.body.data.GetGamesFilterList.games[0].ht;
         const homeTeam2 = gameInterception1.response.body.data.GetGamesFilterList.games[1].ht;
@@ -79,8 +78,8 @@ describe('Search', () => {
     it('Searches for Away Teams', () => {
       cy.wait("@getGames")
 
-      cy.get(`[id="searchAT"]`).type("E")
-      cy.get(`[id="filterAndSearchButton"]`).click()
+      cy.get(`[testid="searchAT"]`).type("E")
+      cy.get(`[testid="filterAndSearchButton"]`).click()
       cy.wait("@getGames").then((gameInterception1) => {
         const awayTeam1 = gameInterception1.response.body.data.GetGamesFilterList.games[0].at;
         const awayTeam2 = gameInterception1.response.body.data.GetGamesFilterList.games[1].at;
@@ -91,8 +90,8 @@ describe('Search', () => {
 
       })
 
-      cy.get(`[id="searchAT"]`).clear().type("Everton")
-      cy.get(`[id="filterAndSearchButton"]`).click()
+      cy.get(`[testid="searchAT"]`).clear().type("Everton")
+      cy.get(`[testid="filterAndSearchButton"]`).click()
       cy.wait("@getGames").then((gameInterception1) => {
         const awayTeam1 = gameInterception1.response.body.data.GetGamesFilterList.games[0].at;
         const awayTeam2 = gameInterception1.response.body.data.GetGamesFilterList.games[1].at;

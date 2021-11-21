@@ -17,7 +17,7 @@ describe('Game modal, rating and commenting', () => {
         
     // })
 
-    it.skip('Game modal can open', () => {
+    it('Game modal can open', () => {
       // Wait for game and user data to load
       cy.wait('@getGames')
       cy.wait('@userData')

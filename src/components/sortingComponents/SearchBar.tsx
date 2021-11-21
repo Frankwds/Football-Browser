@@ -1,12 +1,14 @@
-import { Input, InputGroup, InputLeftAddon } from "@chakra-ui/react";
-import React from "react";
 import "./../style.css";
+
+import { Input, InputGroup, InputLeftAddon } from "@chakra-ui/react";
+
+import React from "react";
 
 type Props = {
   get: (childData: string) => void;
   color: string;
   type: string;
-  id: string;
+  testid: string;
 };
 
 /**
@@ -22,7 +24,7 @@ type Props = {
  *
  */
 
-const SearchBar: React.FC<Props> = ({ get, color, type, id }) => {
+const SearchBar: React.FC<Props> = ({ get, color, type, testid }) => {
   return (
     <InputGroup>
       <InputLeftAddon
@@ -32,7 +34,7 @@ const SearchBar: React.FC<Props> = ({ get, color, type, id }) => {
         border={"none"}
       />
       <Input
-        id = {id}
+        testid = {testid}
         onChange={(event) => get(event.currentTarget.value)}
         placeholder={"All"}
         background={"white"}

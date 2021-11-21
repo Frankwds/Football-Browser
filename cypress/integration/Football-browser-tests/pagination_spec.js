@@ -1,7 +1,5 @@
 import {listenForGameData, listenForUserData} from "../../support/listenFunctions"
 
-
-
 describe('Filter', () => {
     beforeEach(() => {
         listenForGameData()
@@ -29,12 +27,12 @@ describe('Filter', () => {
     })
 
     it('Can not browse past last page', () => {
-      cy.get(`[id="filterLeague"]`).type("E0")
-      cy.get(`[id="searchCountry"]`).type("england")
-      cy.get(`[id="filterSeason"]`).type("2016")
-      cy.get(`[id="searchHT"]`).type("Everton")
-      cy.get(`[id="searchAT"]`).clear().type("Crystal Palace")
-      cy.get(`[id="filterAndSearchButton"]`).click()
+      cy.get(`[testid="filterLeague"]`).type("E0")
+      cy.get(`[testid="searchCountry"]`).type("england")
+      cy.get(`[testid="filterSeason"]`).type("2016")
+      cy.get(`[testid="searchHT"]`).type("Everton")
+      cy.get(`[testid="searchAT"]`).clear().type("Crystal Palace")
+      cy.get(`[testid="filterAndSearchButton"]`).click()
 
       cy.get(`[aria-label="Go page front"]`).click().click().click()
       cy.contains("Page: 1 of")
