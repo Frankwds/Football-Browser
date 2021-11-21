@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing Comments snapshot should be same as previous 1`] = `
+Array [
+  <div
+    id="commentComponent"
+  >
+    <div
+      className="chakra-input__group css-4302v8"
+    >
+      <input
+        className="chakra-input css-cv4qwk"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Skriv en melding"
+        testid="comment-input-field"
+      />
+      <div
+        className="chakra-input__right-element css-dzvope"
+        size="md"
+      >
+        <button
+          className="chakra-button css-8wtj1w"
+          onClick={[Function]}
+          testid="commentButton"
+          type="button"
+        >
+          Comment
+          <span
+            className="chakra-button__icon css-1hzyiq5"
+          >
+            <svg
+              aria-hidden={true}
+              className="chakra-icon css-13ewnpa"
+              focusable={false}
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      className="css-k008qs"
+    >
+      <p
+        className="chakra-text css-12m61xp"
+      >
+        hei
+      </p>
+    </div>
+    <div
+      className="css-k008qs"
+    >
+      <p
+        className="chakra-text css-12m61xp"
+      >
+        og
+      </p>
+    </div>
+    <div
+      className="css-k008qs"
+    >
+      <p
+        className="chakra-text css-12m61xp"
+      >
+        hopp
+      </p>
+    </div>
+  </div>,
+  <span />,
+]
+`;
