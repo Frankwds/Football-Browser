@@ -1,5 +1,5 @@
 import Rating, { RATEGAME } from "../Rating";
-import { getByTestId, getByText, prettyDOM } from "@testing-library/react";
+import { getByTestId } from "@testing-library/react";
 import { ChakraProvider } from "@chakra-ui/react";
 import { MockedProvider } from '@apollo/client/testing';
 import ReactDOM from "react-dom";
