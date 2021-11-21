@@ -3,7 +3,6 @@ import Footer from "../Footer";
 import renderer from "react-test-renderer";
 import { act } from "react-dom/test-utils";
 
-
 let container: any;
 
 beforeEach(() => {
@@ -19,16 +18,19 @@ afterEach(() => {
 describe("Testing Footer", () => {
   it("should render without crashing", () => {
     act(() => {
-      const div = document.createElement("div");
-      ReactDOM.render(<Footer />, div);
-    })
+      ReactDOM.render(<Footer />, container);
+    });
   });
 
   it("snapshot should be same as previous", () => {
-    const tree = renderer
-      .create(<Footer />)
-      .toJSON();
+    const tree = renderer.create(<Footer />).toJSON();
     expect(tree).toMatchSnapshot();
   });
-});
 
+  it("testing if footer renders propperly", () => {
+    act(() => {
+      ReactDOM.render(<Footer />, container);
+    });
+    expect(container.querySelector("p").textContent).toBe("©Team 50, IT2810");
+  });
+});
