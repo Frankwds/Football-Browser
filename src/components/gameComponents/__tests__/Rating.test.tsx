@@ -1,7 +1,6 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import Rating, { RATEGAME } from "../Rating";
 import { getByTestId, getByText, prettyDOM } from "@testing-library/react";
-
 import { ChakraProvider } from "@chakra-ui/react";
 import { MockedProvider } from '@apollo/client/testing';
 import { Provider } from "react-redux";
@@ -85,12 +84,13 @@ it("testing rating", async () => {
 
 describe("Testing Rating", () => {
   it("should render without crashing", () => {
+    // Render component
     act(() => {
       ReactDOM.render(
         <MockedProvider>
           <ChakraProvider>
             <Rating
-              id={"8bTG0QD7/"}
+              id={"8bTG0QD7/"}  
               rating={3}
               numReviews={666}
               callbackOnRate={(data) => {}}
@@ -102,98 +102,90 @@ describe("Testing Rating", () => {
     });
   });
 
-  it.skip("should display the number of reviews next to the rating", () => {
-    // Render
+  it("should display the number of reviews next to the rating", () => {
+    // Generate test data
+    const testData = {
+      id: "8bTG0QD7/",
+      rating: 3,
+      numReviews: 11,
+      testFunction : (data: any) => {}      
+    }
+
+    // Render component
     act(() => {
       ReactDOM.render(
-        <ApolloProvider client={client}>
-          <Provider store={store}>
+        <MockedProvider>
           <ChakraProvider>
             <Rating
-              id={"8bTG0QD7/"}
-              rating={3}
-              numReviews={11}
-              callbackOnRate={(data) => {}}
+              id={testData.id}
+              rating={testData.rating}
+              numReviews={testData.numReviews}
+              callbackOnRate={testData.testFunction}
             />
           </ChakraProvider>
-          </Provider>
-        </ApolloProvider>,
+        </MockedProvider>,
         container
       );
     });
 
-    // Locate review text
+    // Make assertions
     const ratingStarsText = getByTestId(container, "rating-stars-text")
     const innerText = ratingStarsText.innerHTML
-
-    // Ensure it is 
     expect(innerText.split(" ")[0]).toBe("11")
     expect(innerText.split(" ")[1]).toBe("reviews")
   })
 
-  // Frank og Amund intercepter mutation
-
-  it.skip("should send a apollo-server-query when clicked", () => {
-    
-
-
-    // Generate mock-rating data
-    const fake = {
+  it("should start loading after clicking the first rating star", () => {
+    // Generate test data
+    const testData = {
       id: "8bTG0QD7/",
       rating: 3,
       numReviews: 10,
-      callbackOnRate: (data: any) => {
-        console.log("CallbackOnRate method from parent was called");
-        console.log(data)
-      }
+      testFunction: (data: any) => {}
     } 
-
     
-    // Render
+    // Render component
     act(() => {
       ReactDOM.render(
         <MockedProvider mocks={mocks} addTypename={false}>
-          <Provider store={store}>
           <ChakraProvider>
             <Rating
-              id={fake.id}
-              rating={fake.rating}
-              numReviews={fake.numReviews}
-              callbackOnRate={fake.callbackOnRate}
+              id={testData.id}
+              rating={testData.rating}
+              numReviews={testData.numReviews}
+              callbackOnRate={testData.testFunction}
             />
           </ChakraProvider>
-          </Provider>
         </MockedProvider>,
         container
       );
-    }); 
-    // Locate rating button and prepare for click
     const ratingStars = getByTestId(container, "rating-stars");
-    act(() => {
-      // click the rating stars
-      ratingStars.firstChild?.dispatchEvent(new MouseEvent("click", {bubbles: true}));
-    });
+    ratingStars.firstChild?.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+    }); 
 
-    // Ensure rating stars have started reloading
-    const loadingElement = getByText(container, "Loading Ratings...")
-    expect(getByText(container, "Loading Ratings...")).toBeTruthy()
-    expect(loadingElement.innerHTML).toBe("Loading Ratings...")
+    // Make assertions
+    expect(container).toHaveTextContent("Loading Ratings...")
   })
 
-  it.skip("snapshot should be same as previous", () => {
+  it("snapshot should be same as previous", () => {
+    // Generate test data
+    const testData = {
+      id: "8bTG0QD7/",
+      rating: 3,
+      numReviews: 10,
+      testFunction: (data: any) => {}
+    } 
     const tree = renderer
       .create(
         <MockedProvider mocks={mocks} addTypename={false}>
-        <Provider store={store}>
           <ChakraProvider>
             <Rating
-              id={"testId"}
-              rating={3}
-              numReviews={666}
-              callbackOnRate={(data) => {}}
+              id={testData.id}
+              rating={testData.rating}
+              numReviews={testData.numReviews}
+              callbackOnRate={testData.testFunction}
             />
           </ChakraProvider>
-        </Provider>
         </MockedProvider>
       )
       .toJSON();
