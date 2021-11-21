@@ -34,7 +34,9 @@ Snipped PNG of final application:
 
 # Documentation
 
-**Automated testing of React Typescript applications**
+# Automated testing of React Typescript applications
+
+## Unit testing
 In this project the group has worked on implementing systematic automated testing for backend and client from project 3. Tests vary based on the utility of each components, but usually either consider typing input into input-fields, or clicking on elements. Smoke tests, and snapshot tests are also included for all components. 
 
 From the process of implementing tests, many improvents have been made as a result. (litt mer her.)
@@ -48,13 +50,13 @@ Done:
 **Test location**
 Since unit tests work with specific components it makes sense to place them close to the components themselves. Because of this tests are places either one of two places:
 1) The test is placed right next to the file it is testing.
-```
+```bash
 src/
 ├─ App.tsx
 ├─ App.test.tsx
 ```
 2) The test is place in a \_\_tests\_\_ folder in the same place as the component being tested.
-```
+```bash
 gameComponents/
 ├─ Comments.tsx
 ├─ Game.tsx
@@ -72,7 +74,7 @@ gameComponents/
 
 A general framework is put in place to ensuring tests run independently of eachother. A test `container` is generated from scratch before each test contained in the file. The container is appended to the `document.body` and is ready for the test to use. After the test is done the container is removed from the document body, and set to `container = null` in preparation for the next test. The code is shown in the code block below.
 
-```
+```typescript
 beforeEach(() => {
   container = document.createElement("div");
   document.body.appendChild(container);
@@ -92,7 +94,7 @@ Three steps are performed for every unit test.
 
 Test-data is first generated and structured, for example in a `JSON` object. Then, the component rendered using the `ReactDOM.render()` method. Finally assertions are made using the `jest` library, with `expect()` being used for normal assertions while `jest.fn()` is used for spies. The general flow is illustrated in the code block below.
 
-```
+```typescript
 it("has a descriptive name for what is tested",  () => {
     // 1) Generate test-data
     act( () => {
@@ -102,30 +104,135 @@ it("has a descriptive name for what is tested",  () => {
     )
 }
 ```
-    
-- Apollo-server-mockings
-    - MockedProvider, Mocks, 
 
-- #Cypress end-to-end testing
+
+
+# Data mocking
+Instead of calling the real Apollo-server configured in Project 3 mock requests are used to intercept component queries. These interceptions return dummy data that can be specifically configured for each test.
+
+To achieve this the component's normal `<ApolloProvider>` wrapping is replaced with a `<MockedProvider>`. The normal `client` element is exchanged with a `mocks` props. 
+ 
+<table>
+<tr>
+<th>Apollo-server provider</th>
+<th>Mocked server provider</th>
+</tr>
+<tr>
+<td>
+
+```typescript
+ReactDom.render(
+<ApolloProvider 
+    client={client}
+    >
+    <Component />
+</ApolloProvider>
+)
+```
+
+</td>
+<td>
+
+```typescript
+ReactDom.render(
+<MockedProvider 
+    mocks={mocks}
+    >
+    <Component />
+</MockedProvider>
+)
+```
+
+</td>
+</tr>
+</table>
+
+The `mocks` props takes care of which GraphQL querys are to be intercepted. A piece of `mockData` is generated to be returned in place of the `data` normally returned from the query. The specific `query` and which `variables` to intercept for must also be specified.
+
+An outline for the mock configurations is specified in the code block below.
+
+```typescript
+// Generate mockData to be returned
+const mockData = { key: 'data'};
+
+// Specify which query to intercept, and for which variables
+const mocks = [
+  {
+    request: {
+      query: gql`query (...)`,
+      variables: { ... },
+    },
+    result: { data: { mockData } },
+  },
+];
+```
+As a result if the specified query is ran during tests, the mockData is returned in place of the normal GraphQL query data. This allows for running test setups without communicating with the live server.
+
+# Cypress end-to-end testing
 Cypress is an end-to-end testing framework for web test automation which we have used to write automated web tests for the Football Browser application.
 
+
+**Test location**
+All tests writen to cypress are stored in the same folder called Football-browsers-tests.
+```bash
+cypress/
+├─ integration/Football-browser-tests/
+│  ├─ comments_and_ratings_spec.js
+│  ├─ filter_spec.js
+│  ├─ home_page_spec.js
+│  ├─ modal_spec.js
+│  ├─ pagination_spec.js
+│  ├─ search_and_filter_spec.js
+│  ├─ search_spec.js
+│  ├─ sort_spec.js
+├─ support/
+│  ├─ listenFunctions.js
+
+
+```
+## Testing coverage
+
 Using cypress and end-2-end testing every common usecase of the application has been tested.
-The integration tests we have written covers the following:
+- The integration tests we have written covers the following:
     - Turing pages
     - Filtering
     - Searching
     - Sorting
     - Commenting
     - Rating
-    
-It has been covered by a total of 22 testcases divided on 8 tests where cypress mocks user interaction with the different elements of the page, awaits for the server to respond with data and asserts the resulting page.
 
-Every test has 
+The functionality has been covered by a total of 22 testcases divided on 8 tests. Cypress mocks user interaction with the different elements of the page, awaits for the server to respond with data and asserts the resulting page.
 
-    - beforeEach -> cy.intercept -> cy.visit
-    - cy.get -> cy.wait -> cy.expect
-    - cy.contains
-    - 
+## Setup and teardown
+
+Each test has a similar setup: Using visit to refresh the page, effectivly setting up and tearing down between each test case.
+
+```javascript
+    beforeEach( () => {
+        listenForGameData()
+        listenForDetailedGameData()
+        listenForUserData()
+        cy.visit('http://localhost:3000/prosjekt4')
+        })
+```
+The listen functions are imported from /support/listenFunctions.js, and set up cypress to intercept Apollo graphql request
+```javascript
+ cy.wait("@getGames")
+```
+We can then explicitly wait for data, before the next page-interaction or assertion is made, thereby guaranteeing the quality of the tests.
+
+## Testing procedure
+
+Here is an example taken from the integration test performed on the user rating functionality and correctly depicts how we test with cypress.
+```javascript
+cy.get('[data-testid="rating-stars"]').children().eq(4).click({force: true});
+cy.wait('@rateGame') 
+expect(ratingBeforeClick != ratingAfterClick).to.be.true
+```
+The DOM elements are retrieved with id or as children elements and we assert in two ways:
+- using expects like in the exmpe above.
+- using cy.contains, asserting if certain text strings is part of the visible screen.
+
 
 
 ## Technology
