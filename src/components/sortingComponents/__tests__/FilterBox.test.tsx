@@ -31,23 +31,41 @@ describe("Testing FilterBox", () => {
   it("should render without crashing", () => {
     act(() => {
       ReactDOM.render(
-      <Provider store={store}>
-        <ChakraProvider>
-          <FilterBox color={col} accent={acc} />
-        </ChakraProvider>
-      </Provider>, 
-      container);
+        <Provider store={store}>
+          <ChakraProvider>
+            <FilterBox color={col} accent={acc} />
+          </ChakraProvider>
+        </Provider>,
+        container
+      );
+    });
+  });
+
+  it("should render with the correct fields", () => {
+    act(() => {
+      ReactDOM.render(
+        <Provider store={store}>
+          <ChakraProvider>
+            <FilterBox color={col} accent={acc} />
+          </ChakraProvider>
+        </Provider>,
+        container
+      );
+      expect(container.querySelector("button").textContent).toBe(
+        "-Filter and search!-"
+      );
     });
   });
 
   it("snapshot should be same as previous", () => {
     const tree = renderer
-      .create(      
-      <Provider store={store}>
-        <ChakraProvider>
-          <FilterBox color={col} accent={acc} />
-        </ChakraProvider>
-      </Provider>)
+      .create(
+        <Provider store={store}>
+          <ChakraProvider>
+            <FilterBox color={col} accent={acc} />
+          </ChakraProvider>
+        </Provider>
+      )
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
