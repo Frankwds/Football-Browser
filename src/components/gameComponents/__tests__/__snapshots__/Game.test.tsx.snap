@@ -25,7 +25,7 @@ Array [
     </div>
     <div
       className="css-u4p24i"
-      testid="rating-stars"
+      data-testid="rating-stars"
     >
       <svg
         fill="currentColor"
@@ -129,7 +129,7 @@ Array [
       </svg>
       <span
         className="css-1529eig"
-        id="rating-stars-text"
+        data-testid="rating-stars-text"
       >
         0
          review
