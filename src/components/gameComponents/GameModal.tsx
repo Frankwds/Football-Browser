@@ -56,7 +56,7 @@ const GameModal: React.FC<Props> = (props) => {
       wt = lt;
       lt = data.GetGameByID.fthg;
       wtn = props.awayTeam;
-    } else if (lt == wt) {
+    } else if (lt === wt) {
       return (
         <p>
           Final score: {wt} - {lt}

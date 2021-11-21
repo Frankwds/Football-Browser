@@ -1,28 +1,9 @@
 import ReactDOM from "react-dom";
 import { act } from "react-dom/test-utils";
-import Comments, {COMMENTONGAME} from "../Comments";
+import Comments from "../Comments";
 import renderer from "react-test-renderer";
 import { ChakraProvider } from "@chakra-ui/react";
 import { MockedProvider } from "@apollo/client/testing";
-
-// Mock data to be returned in place of normal GraphQL data response
-const mockData = {
-  id_odsp: '8bTG0QD7/',
-  data: {
-    commentOnGame: {
-      comments: ["Hei", "og", "hopp"]
-    }
-  }
-}
-const mocks = [
-  {
-    request: {
-      query: COMMENTONGAME,
-      variables: { gameId: '8bTG0QD7/', comment: "mockComment" },
-    },
-    result: { data: { mockData } },
-  },
-];
 
 
 // Setup and teardown

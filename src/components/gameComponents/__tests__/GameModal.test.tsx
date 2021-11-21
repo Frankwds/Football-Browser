@@ -4,7 +4,6 @@ import { act } from "react-dom/test-utils";
 import renderer from "react-test-renderer";
 import GameModal from "../GameModal";
 import { MockedProvider } from "@apollo/client/testing";
-import { gql} from "@apollo/client";
 
 // Setup and teardown
 let container: any;
@@ -25,34 +24,7 @@ const cou = "Norway";
 const ht = "GGTeam";
 const at = "FrankTeam";
 
-const GETSINGLEGAME = gql`
-  query GetGameDetailsByID($gameID: String!) {
-    GetGameByID(gameID: $gameID) {
-      date
-      season
-      fthg
-      ftag
-    }
-  }
-`;
 
-const mocks = [{
-  request: {
-    query: GETSINGLEGAME,
-    variables: { gameID: "testId" },
-  },
-  result: {
-    data: {
-      GetGameByID: {
-        date: "2022-08-05",
-        season: "2022",
-        fthg: "1",
-        ftag: "3",
-      },
-    },
-  },
-}
-];
 
 describe("Testing GameModal", () => {
   it("should render without crashing", async () => {

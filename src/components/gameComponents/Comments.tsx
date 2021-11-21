@@ -11,7 +11,7 @@ import {
 import { useQuery, useMutation, gql } from "@apollo/client";
 import { useState } from "react";
 
-const COMMENTONGAME = gql`
+export const COMMENTONGAME = gql`
   mutation Mutation($gameId: String!, $comment: String!) {
     commentOnGame(gameID: $gameId, comment: $comment) {
       id_odsp

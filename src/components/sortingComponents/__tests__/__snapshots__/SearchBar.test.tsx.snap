@@ -12,11 +12,11 @@ Array [
     </div>
     <input
       className="chakra-input css-2nurv4"
-      id="iid"
       onBlur={[Function]}
       onChange={[Function]}
       onFocus={[Function]}
       placeholder="All"
+      testid="iid"
     />
   </div>,
   <span />,
