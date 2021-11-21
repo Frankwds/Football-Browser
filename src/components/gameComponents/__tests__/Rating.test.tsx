@@ -4,7 +4,7 @@ import { getByTestId, getByText, prettyDOM } from "@testing-library/react";
 import { ChakraProvider } from "@chakra-ui/react";
 import { MockedProvider } from '@apollo/client/testing';
 import { Provider } from "react-redux";
-import Rating from "../Rating";
+import Rating, { RATEGAME } from "../Rating";
 import ReactDOM from "react-dom";
 import TestRenderer from 'react-test-renderer';
 import { act } from "react-dom/test-utils";
@@ -13,16 +13,6 @@ import { createStore } from "redux";
 import renderer from "react-test-renderer";
 import { useState } from "react";
 
-// Import Apollo Server from specified uri adress
-
-const RATEGAME = gql`
-mutation rateGame($gameId: String!, $rating: Int!) {
-  rateGame(gameID: $gameId, rating: $rating) {
-    id_odsp
-    ratings
-  }
-}
-`;
 const mocks = [
 {
   request: {

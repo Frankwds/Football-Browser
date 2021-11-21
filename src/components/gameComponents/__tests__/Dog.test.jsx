@@ -49,7 +49,6 @@ it('renders without error', async () => {
 });
 
 
-
 it('should render loading state initially and then delete', async () => {
   const deleteDog = { name: 'Buck', breed: 'Poodle', id: 1 };
   const mocks = [
@@ -89,22 +88,3 @@ it('should render loading state initially and then delete', async () => {
 
       expect(container).toHaveTextContent("Deleted!")
 });
-
-// const component = TestRenderer.create(
-
-// <MockedProvider mocks={mocks} addTypename={false}>
-//   <DeleteButton />
-// </MockedProvider>,
-// );
-
-// // Locate rating button and prepare for click
-// const button = component.root.findByType('button');
-// button.props.onClick(); // fires the mutation
-
-// // Wait for mutation to load
-// await act( async () => {
-//   await new Promise(resolve => setTimeout(resolve, 100)); // wait for response
-// });
-
-// const tree = component.toJSON();
-// expect(tree.children).toContain('Deleted!')
