@@ -1,4 +1,3 @@
-import { ApolloClient, gql } from "@apollo/client";
 import { ChakraProvider } from "@chakra-ui/react";
 import React from "react";
 import ReactDOM, { render, unmountComponentAtNode } from "react-dom";
@@ -10,8 +9,20 @@ import { createStore } from "redux";
 import allReducers from "../../../redux";
 import GameModal from "../GameModal";
 import { MockedProvider } from "@apollo/client/testing";
+import { prettyDOM } from "@testing-library/react";
+import {
+  ApolloClient,
+  ApolloProvider,
+  InMemoryCache,
+  gql,
+} from "@apollo/client";
 
 let container: any;
+
+const client = new ApolloClient({
+  uri: "http://localhost:4000/graphql",
+  cache: new InMemoryCache(),
+});
 
 beforeEach(() => {
   container = document.createElement("div");
@@ -41,31 +52,28 @@ const GETSINGLEGAME = gql`
   }
 `;
 
-const mocks = [
-  {
-    request: {
-      query: GETSINGLEGAME,
-      variables: { id_odsp: "8bTG0QD7/" },
-    },
-    result: {
-      data: {
-        GetGameByID: {
-          date: "2022-08-05",
-          season: "2022",
-          fthg: "1",
-          ftag: "3",
-        },
+const mocks = {
+  request: {
+    query: GETSINGLEGAME,
+    variables: { gameID: "testId" },
+  },
+  result: {
+    data: {
+      GetGameByID: {
+        date: "2022-08-05",
+        season: "2022",
+        fthg: "1",
+        ftag: "3",
       },
     },
   },
-];
+};
 
 describe("Testing GameModal", () => {
-  it("should render without crashing", () => {
+  it.skip("should render without crashing", async () => {
     act(() => {
-      const div = document.createElement("div");
       ReactDOM.render(
-        <MockedProvider mocks={mocks} addTypename={false}>
+        <MockedProvider mocks={[mocks]} addTypename={false}>
           <ChakraProvider>
             <GameModal
               id={id}
@@ -84,26 +92,57 @@ describe("Testing GameModal", () => {
         container
       );
     });
+    console.log(prettyDOM(container));
+    await new Promise((r) => setTimeout(r, 2000));
+    console.log(prettyDOM(container));
+  });
+
+  it("temp apollo thing", async () => {
+    act(() => {
+      ReactDOM.render(
+        <ApolloProvider client={client}>
+          <ChakraProvider>
+            <GameModal
+              id={id}
+              country={cou}
+              series={ser}
+              homeTeam={ht}
+              awayTeam={at}
+              callbackOnRate={() => {}}
+              callbackOnComment={() => {}}
+              rating={3}
+              numReviews={666}
+              comments={["1", "2", "3"]}
+            />
+          </ChakraProvider>
+        </ApolloProvider>,
+        container
+      );
+    });
+    console.log(prettyDOM(container));
+    await new Promise((r) => setTimeout(r, 2000));
+    console.log(prettyDOM(container));
   });
 
   it.skip("should display the correct data", () => {
     act(() => {
-      const div = document.createElement("div");
       ReactDOM.render(
-        <ChakraProvider>
-          <GameModal
-            id={id}
-            country={cou}
-            series={ser}
-            homeTeam={ht}
-            awayTeam={at}
-            callbackOnRate={() => {}}
-            callbackOnComment={() => {}}
-            rating={3}
-            numReviews={666}
-            comments={["1", "2", "3"]}
-          />
-        </ChakraProvider>,
+        <MockedProvider mocks={[mocks]} addTypename={false}>
+          <ChakraProvider>
+            <GameModal
+              id={id}
+              country={cou}
+              series={ser}
+              homeTeam={ht}
+              awayTeam={at}
+              callbackOnRate={() => {}}
+              callbackOnComment={() => {}}
+              rating={3}
+              numReviews={666}
+              comments={["1", "2", "3"]}
+            />
+          </ChakraProvider>
+        </MockedProvider>,
         container
       );
     });
@@ -127,20 +166,22 @@ describe("Testing GameModal", () => {
   it.skip("snapshot should be same as previous", () => {
     const tree = renderer
       .create(
-        <ChakraProvider>
-          <GameModal
-            id={"testId"}
-            country={"Norway"}
-            series={"N1"}
-            homeTeam={"GGTeam"}
-            awayTeam={"FrankTeam"}
-            callbackOnRate={() => {}}
-            callbackOnComment={() => {}}
-            rating={3}
-            numReviews={666}
-            comments={["1", "2", "3"]}
-          />
-        </ChakraProvider>
+        <MockedProvider mocks={[mocks]} addTypename={false}>
+          <ChakraProvider>
+            <GameModal
+              id={"testId"}
+              country={"Norway"}
+              series={"N1"}
+              homeTeam={"GGTeam"}
+              awayTeam={"FrankTeam"}
+              callbackOnRate={() => {}}
+              callbackOnComment={() => {}}
+              rating={3}
+              numReviews={666}
+              comments={["1", "2", "3"]}
+            />
+          </ChakraProvider>
+        </MockedProvider>
       )
       .toJSON();
     expect(tree).toMatchSnapshot();

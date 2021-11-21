@@ -1,5 +1,4 @@
 import Rating from "./Rating";
-
 import Comments from "./Comments";
 import { ModalBody } from "@chakra-ui/react";
 import { useQuery, gql } from "@apollo/client";
