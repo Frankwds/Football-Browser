@@ -6,7 +6,9 @@ import { Provider } from "react-redux";
 import { act } from "react-dom/test-utils";
 import { createStore } from "redux";
 import allReducers from "../../../redux";
+import renderer from "react-test-renderer";
 
+let container: any;
 
 // Import Apollo Server from specified uri adress
 const client = new ApolloClient({
@@ -21,19 +23,44 @@ const store = createStore(allReducers);
 const col = "rgb(192,192,192)";
 const acc = "rgb(0,128,128)";
 
+beforeEach(() => {
+  container = document.createElement("div");
+  document.body.appendChild(container);
+});
+
+afterEach(() => {
+  document.body.removeChild(container);
+  container = null;
+});
+
 describe("Testing Content", () => {
   it("should render without crashing", () => {
-    const div = document.createElement("div");
     act(() => {
       ReactDOM.render(
         <ApolloProvider client={client}>
           <Provider store={store}>
             <ChakraProvider>
-              <Content color={col} accent={acc}/>
+              <Content color={col} accent={acc} />
+            </ChakraProvider>
+          </Provider>
+        </ApolloProvider>,
+        container
+      );
+    });
+  });
+
+  it("snapshot shuld be same as last", () => {
+    const tree = renderer
+      .create(
+        <ApolloProvider client={client}>
+          <Provider store={store}>
+            <ChakraProvider>
+              <Content color={col} accent={acc} />
             </ChakraProvider>
           </Provider>
         </ApolloProvider>
-        , div);
-    })
+      )
+      .toJSON();
+    expect(tree).toMatchSnapshot();
   });
-})
+});
