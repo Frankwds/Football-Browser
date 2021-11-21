@@ -23,11 +23,11 @@ Array [
         </div>
         <input
           className="chakra-input css-2nurv4"
-          id="filterLeague"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
           placeholder="All"
+          testid="filterLeague"
         />
       </div>
       <div
@@ -40,11 +40,11 @@ Array [
         </div>
         <input
           className="chakra-input css-2nurv4"
-          id="searchCountry"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
           placeholder="All"
+          testid="searchCountry"
         />
       </div>
       <div
@@ -57,11 +57,11 @@ Array [
         </div>
         <input
           className="chakra-input css-2nurv4"
-          id="filterSeason"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
           placeholder="All"
+          testid="filterSeason"
         />
       </div>
       <div
@@ -74,11 +74,11 @@ Array [
         </div>
         <input
           className="chakra-input css-2nurv4"
-          id="searchHT"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
           placeholder="All"
+          testid="searchHT"
         />
       </div>
       <div
@@ -91,17 +91,17 @@ Array [
         </div>
         <input
           className="chakra-input css-2nurv4"
-          id="searchAT"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
           placeholder="All"
+          testid="searchAT"
         />
       </div>
       <button
         className="chakra-button css-hh65fl"
-        id="filterAndSearchButton"
         onClick={[Function]}
+        testid="filterAndSearchButton"
         type="button"
       >
         -Filter and search!
