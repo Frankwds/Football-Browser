@@ -1,11 +1,9 @@
 import ReactDOM from "react-dom";
 import { act } from "react-dom/test-utils";
 import Comments, {COMMENTONGAME} from "../Comments";
-import Rating, {RATEGAME} from "../Rating";
 import renderer from "react-test-renderer";
 import { ChakraProvider } from "@chakra-ui/react";
 import { MockedProvider } from "@apollo/client/testing";
-import { prettyDOM } from "@testing-library/react";
 
 // Mock data to be returned in place of normal GraphQL data response
 const mockData = {

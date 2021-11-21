@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing GameModal snapshot should be same as previous 1`] = `
+Array [
+  <div>
+    Loading...
+  </div>,
+  <span />,
+]
+`;
