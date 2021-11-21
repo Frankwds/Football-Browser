@@ -29,7 +29,7 @@ describe("Testing SearchBar", () => {
       ReactDOM.render(
         <Provider store={store}>
           <ChakraProvider>
-            <SearchBar id={"iid"} color={acc} type={"test: "} get={() => {}} />
+            <SearchBar testid={"iid"} color={acc} type={"test: "} get={() => {}} />
           </ChakraProvider>
         </Provider>,
         container
@@ -42,7 +42,7 @@ describe("Testing SearchBar", () => {
       ReactDOM.render(
         <Provider store={store}>
           <ChakraProvider>
-            <SearchBar id={"iid"} color={acc} type={"test: "} get={() => {}} />
+            <SearchBar testid={"iid"} color={acc} type={"test: "} get={() => {}} />
           </ChakraProvider>
         </Provider>,
         container
@@ -56,7 +56,7 @@ describe("Testing SearchBar", () => {
       .create(
         <Provider store={store}>
           <ChakraProvider>
-            <SearchBar id={"iid"} color={acc} type={"test: "} get={() => {}} />
+            <SearchBar testid={"iid"} color={acc} type={"test: "} get={() => {}} />
           </ChakraProvider>
         </Provider>
       )
@@ -74,7 +74,7 @@ describe("Testing SearchBar", () => {
       ReactDOM.render(
         <Provider store={store}>
           <ChakraProvider>
-            <SearchBar id={"iid"} color={acc} type={"test: "} get={setText} />
+            <SearchBar testid={"iid"} color={acc} type={"test: "} get={setText} />
           </ChakraProvider>
         </Provider>,
         container

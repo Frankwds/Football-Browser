@@ -16,6 +16,7 @@ Array [
       onChange={[Function]}
       onFocus={[Function]}
       placeholder="All"
+      testid="iid"
     />
   </div>,
   <span />,
