@@ -79,45 +79,6 @@ describe("Testing GameModal", () => {
     });
   });
 
-  it.skip("should display the correct data", () => {
-    act(() => {
-      ReactDOM.render(
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <ChakraProvider>
-            <GameModal
-              id={id}
-              country={cou}
-              series={ser}
-              homeTeam={ht}
-              awayTeam={at}
-              callbackOnRate={() => {}}
-              callbackOnComment={() => {}}
-              rating={3}
-              numReviews={666}
-              comments={["1", "2", "3"]}
-            />
-          </ChakraProvider>
-        </MockedProvider>,
-        container
-      );
-    });
-    expect(container.querySelector("li:nth-child(0)").textContent).toBe(
-      "League: " + ser
-    );
-    expect(container.querySelector("li:nth-child(1)").textContent).toBe(
-      "Country: " + cou
-    );
-    expect(container.querySelector("li:nth-child(4)").textContent).toBe(
-      "Home team: " + ht
-    );
-    expect(container.querySelector("li:nth-child(5)").textContent).toBe(
-      "Away team: " + at
-    );
-    expect(container.querySelector("li:nth-child(6) p").textContent).toBe(
-      "Final score: 3 - 1 to FrankTeam!"
-    );
-  });
-
   it("snapshot should be same as previous", () => {
     const tree = renderer
       .create(
