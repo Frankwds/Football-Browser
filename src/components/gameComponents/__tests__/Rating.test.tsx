@@ -1,4 +1,4 @@
-import { ApolloClient, ApolloProvider, InMemoryCache, gql } from "@apollo/client";
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import Rating, { RATEGAME } from "../Rating";
 import { getByTestId, getByText, prettyDOM } from "@testing-library/react";
 
@@ -10,9 +10,9 @@ import { act } from "react-dom/test-utils";
 import allReducers from "../../../redux";
 import { createStore } from "redux";
 import renderer from "react-test-renderer";
-import { useState } from "react";
 
-const rateGame = { id_odsp: '8bTG0QD7/', ratings: [1,1,1,1,1,1]};
+// Mock data to be returned in place of normal GraphQL data response
+const rateGame = { id_odsp: '8bTG0QD7/', ratings: [1,1,1,1,1]};
 const mocks = [
   {
     request: {
@@ -29,8 +29,11 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-let container: any;
 const store = createStore(allReducers);
+
+
+// Setup and teardown
+let container: any;
 
 beforeEach(() => {
   container = document.createElement("div");
@@ -60,14 +63,10 @@ it("testing rating", async () => {
       </MockedProvider>,
       container
     ) // Finish render
-  }) // Finish act
-
   // Locate rating button and prepare for click
   const ratingStars = getByTestId(container, "rating-stars");
-  act(() => {
-    // click the rating stars
-    ratingStars.firstChild?.dispatchEvent(new MouseEvent("click", {bubbles: true}));
-  });
+  ratingStars.firstChild?.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+  }) // Finish act
 
   // Assert component to start loading
   expect(container).toHaveTextContent("Loading Ratings...")
