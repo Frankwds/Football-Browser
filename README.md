@@ -35,7 +35,8 @@ Snipped PNG of final application:
 # Documentation
 
 - React unit testing og Jest
-- Apollo-server-mocking
+    - Test location (\_\_test\_\_ folders)
+- Apollo-server-mockings
 - Cypress end-to-end testing
 
 
