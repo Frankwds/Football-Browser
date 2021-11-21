@@ -50,7 +50,7 @@ it('renders without error', async () => {
 
 
 
-it.skip('should render loading state initially', async () => {
+it('should render loading state initially', async () => {
   const deleteDog = { name: 'Buck', breed: 'Poodle', id: 1 };
   const mocks = [
     {
@@ -63,20 +63,46 @@ it.skip('should render loading state initially', async () => {
   ];
 
   const component = TestRenderer.create(
-    <MockedProvider mocks={mocks} cache = {cache} addTypename={false}>
+    <MockedProvider mocks={mocks} addTypename={false}>
       <DeleteButton />
     </MockedProvider>,
   );
 
-  // find the button and simulate a click
+  // Locate rating button and prepare for click
   const button = component.root.findByType('button');
   button.props.onClick(); // fires the mutation
-
-  await new Promise(resolve => setTimeout(resolve, 1)); // wait for response
-
+  
+  // Wait for mutation to load
+  await act( async () => {
+    await new Promise(resolve => setTimeout(resolve, 100)); // wait for response
+  });
 
   const tree = component.toJSON();
   expect(tree.children).toContain('Deleted!');
 
-  
+  // const container = document.createElement("div");
+
+  // Render
+  //act(() => {
+  //  ReactDOM.render(
+  //    <MockedProvider mocks={mocks} cache = {cache} addTypename={false}>
+  //      <DeleteButton />
+  //    </MockedProvider>,
+  //    container);
+  //  });
+
+  //const button = getByText(container, "Click to Delete Buck");
+  //console.log(prettyDOM(button));
+
+  //console.log(prettyDOM(container))
+  //expect(container).toHaveTextContent("Click to Delete Buck")
+
+  // act(() => {
+  //   // click the button
+  //   button.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+  // });
+
+  //console.log(prettyDOM(container))
+
+  //expect(container).toHaveTextContent("Deleted!")
 });
