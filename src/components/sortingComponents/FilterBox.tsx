@@ -1,11 +1,13 @@
-import { Button, VisuallyHidden } from "@chakra-ui/react";
-import { BsSearch } from "react-icons/bs";
 import "./../style.css";
-import { Grid } from "@chakra-ui/react";
+
+import { Button, VisuallyHidden } from "@chakra-ui/react";
+
 import { Box } from "@chakra-ui/react";
+import { BsSearch } from "react-icons/bs";
+import { Grid } from "@chakra-ui/react";
 import SearchBar from "./SearchBar";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 type Props = {
   color: string;
@@ -68,23 +70,23 @@ const FilterBox: React.FC<Props> = ({ color, accent }) => {
         >
           - Filter By -
         </Box>
-        <SearchBar id="filterLeague" color={accent} type={"League: "} get={setLeague}>
+        <SearchBar testid="filterLeague" color={accent} type={"League: "} get={setLeague}>
           <VisuallyHidden>Search for a League, example: l1</VisuallyHidden>
         </SearchBar>
-        <SearchBar id="searchCountry" color={accent} type={"Contry: "} get={setContry}>
+        <SearchBar testid="searchCountry" color={accent} type={"Contry: "} get={setContry}>
           <VisuallyHidden>
             Search for a Country, example: england
           </VisuallyHidden>
         </SearchBar>
-        <SearchBar id="filterSeason" color={accent} type={"Season: "} get={setSeason}>
+        <SearchBar testid="filterSeason" color={accent} type={"Season: "} get={setSeason}>
           <VisuallyHidden>Search for a Season, example 2016</VisuallyHidden>
         </SearchBar>
-        <SearchBar id="searchHT" color={accent} type={"Home Team: "} get={setHt}>
+        <SearchBar testid="searchHT" color={accent} type={"Home Team: "} get={setHt}>
           <VisuallyHidden>
             Search for a home-team, example Stoke City
           </VisuallyHidden>
         </SearchBar>
-        <SearchBar id="searchAT" color={accent} type={"Away Team: "} get={setAt}>
+        <SearchBar testid="searchAT" color={accent} type={"Away Team: "} get={setAt}>
           <VisuallyHidden>
             Search for a away-team, example Everton
           </VisuallyHidden>

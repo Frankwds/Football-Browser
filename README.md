@@ -27,22 +27,17 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Go to the following link [http://it2810-50.idi.ntnu.no/prosjekt3/](http://it2810-50.idi.ntnu.no/prosjekt3/) to enjoy a nice presentation of your favorite football games!
 
-## Figma MockUp
-
-Filter game list with diffrent string inputs or prefferably drop down menus.
-![filter](resources/filter.png "Filter game list")
-
-View single game in popup to see comments and rating
-![game](resources/game.png "Single game view")
-
-https://www.figma.com/file/0fI2ua3Io3TU2zJQ9HhsZ1/Webdev-pro3?node-id=0%3A1
-
 ## Application layout
 
 Snipped PNG of final application:
 ![app](resources/app.PNG "Application")
 
 # Documentation
+
+- React unit testing og Jest
+- Apollo-server-mocking
+- Cypress end-to-end testing
+
 
 ## Technology
 
@@ -69,40 +64,17 @@ Chakra UI is a modular and simple component library providing building blocks fo
 
 The group considers the usability of third-party UI packages very valuable, and Chakra UI is therefore used extensively throughout the application. This enables faster development and more beautiful styling. This can for instance be seen in the [Game](./src/components/gameComponents/Game.tsx) functional component which solely consists of Chakra UI components.
 
-## Web accessibility
-
-Aspects of web accessibility and universal design is demonstrated in this website.
-We have explicitly added functionality so the user can press TAB to move between all fields and buttons on the webpage.
-The games can be accessed when focused by tab and on pressing Enter, then closed the same way.
-This way, none of the features of this site is uavailable without using the cursor.
-(Tab Index and keyPress actions have been added to Game.tsx, solely to accomodate this feature.)
-
-The text size scales with the zoom function in browsers like Chrome and Safari, making everything readable to those who needs larger text.
-We have also chosen a clean and textbased design, users who have text read to them will have a parallell experience to those that read the screen themselves.
-
-All search fields have also been describes explicitly to screen readers through the chackra ui component "VisuallyHidden", which describes what the user should do with that specific search field.
-
 ## Redux
 
 We have used redux to store and pass the values of the search and filter function on our website.
 The Filter passes the values in all field to our redux reducer with the action "UPDATE_SEARCH_DATA", which GameList.tsx listens to. The Query to our server is thereby automatically re-sent on any changes in these parameters.
 We chose Redux over the availible Apollo Cache because it was usefull to learn a library as widely used as Redux.
 
-## Context
-
-We are using the Apollo client Context and cache to store any and all queries. If the user re-visits any page or Game-detail, the data will be retrieved from the local Apollo Cache, not the server.
-
-## Design
-
-The group agreed on a simple application design to facilitate more extensive focus on the functional parts of the application.
-
-### Components
-
-We are using the Chackra UI library throughout the application to easily and elegantly create all our components.
-Examples are found in Comments.tsx, GameModal.tsx, Game.tsx, FilterBox.tsx and most all of our components.
 
 
 # File tree
+
+TODO: Add a file tree here after everything is done.
 ```bash
 src/
 ┣ apolloExample/
