@@ -1,5 +1,4 @@
-# Project 4 
-# Improvements and systematic testing of backend and client
+# Project 4 - Systematic Testing of Backend and Client
 
 In this project the group sets out to implement systematic testing of the backend and client from Project 3. Unit tests are ran using Jest. Integration tests are ran using Cypress. The server is tested using the Apollo server testing framework. 
 
@@ -7,19 +6,14 @@ The application allows a user to interact with a database containing football-ma
 
 # Setup
 
-Go to the following link [http://it2810-50.idi.ntnu.no/prosjekt4/](http://it2810-50.idi.ntnu.no/prosjekt4/) to enjoy a nice presentation of your favorite football games!
+## Database and Server
 
-The Apollo server and MongoDB database is running continuously on the Virtual Machine using the node-mode forever (https://www.npmjs.com/package/forever). Because of this there is no need to start the server locally. There have been some bugs in the deployment of the app on the VM so performance may improve by running the client locally.
+The Apollo server and MongoDB database is running continuously on the Virtual Machine using the node-mode forever (https://www.npmjs.com/package/forever). Because of this there is no need to start the server locally.
 
 ## Run local client
 
 Navigate to root and then first run `npm install`. When complete run `npm start`. This runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Run remotely
 
