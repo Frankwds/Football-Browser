@@ -44,43 +44,7 @@ afterEach(() => {
   container = null;
 });
 
-it("testing rating", async () => {
-  const confirmationText = "callbackOnRate was called"
-  console.log = jest.fn();
-  const testEmptyCallback = () => { console.log(confirmationText)};
 
-  act( () => {
-    ReactDOM.render(
-      <MockedProvider mocks={mocks} addTypename={false}>
-          <ChakraProvider>
-            <Rating
-              id={"8bTG0QD7/"}
-              rating={1}
-              numReviews={666}
-              callbackOnRate={testEmptyCallback}/>
-          </ChakraProvider>
-      </MockedProvider>,
-      container
-    ) // Finish render
-  // Locate rating button and prepare for click
-  const ratingStars = getByTestId(container, "rating-stars");
-  ratingStars.firstChild?.dispatchEvent(new MouseEvent("click", {bubbles: true}));
-  }) // Finish act
-
-  // Assert component to start loading
-  expect(container).toHaveTextContent("Loading Ratings...")
-
-  // Wait for mock server response 100 ms
-  await act( async () => {
-    await new Promise(resolve => setTimeout(resolve, 100)); // wait for response
-  });
-
-  // Assert reviews to show again
-  expect(container).toHaveTextContent("666 reviews")
-  
-  // Assert that the callback function has been called
-  expect(console.log).toHaveBeenCalledWith(confirmationText);
-})
 
 describe("Testing Rating", () => {
   it("should render without crashing", () => {
@@ -165,6 +129,76 @@ describe("Testing Rating", () => {
 
     // Make assertions
     expect(container).toHaveTextContent("Loading Ratings...")
+  })
+
+  it("should reload back the same component after a short delay", async () => {
+    // Generate test data
+    const testData = {
+      id: "8bTG0QD7/",
+      rating: 1,
+      numReviews: 666,
+      testFunction: (data: any) => {}
+    } 
+
+    // Render component  
+    await act( async () => {
+      ReactDOM.render(
+        <MockedProvider mocks={mocks} addTypename={false}>
+            <ChakraProvider>
+              <Rating
+              id={testData.id}
+              rating={testData.rating}
+              numReviews={testData.numReviews}
+              callbackOnRate={testData.testFunction}
+              />
+            </ChakraProvider>
+        </MockedProvider>,
+        container
+      ) // Finish render
+    // Locate rating button and prepare for click
+    const ratingStars = getByTestId(container, "rating-stars");
+    ratingStars.firstChild?.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+    await new Promise(resolve => setTimeout(resolve, 100)); // wait for response
+    }) // Finish act
+  
+    // Make assertions
+    expect(container).toHaveTextContent("666 reviews")
+  })
+
+  it("should run function passed as prop callbackOnRate", async () => {    
+    // Generate test data
+    const confirmationText = "callbackOnRate was called"
+    const testData = {
+      id: "8bTG0QD7/",
+      rating: 1,
+      numReviews: 666,
+      testFunction: (data: any) => {console.log(confirmationText)}
+    }
+    console.log = jest.fn(); // Spy on console.log
+
+    // Render component
+    await act( async () => {
+      ReactDOM.render(
+        <MockedProvider mocks={mocks} addTypename={false}>
+            <ChakraProvider>
+              <Rating
+              id={testData.id}
+              rating={testData.rating}
+              numReviews={testData.numReviews}
+              callbackOnRate={testData.testFunction}
+                />
+            </ChakraProvider>
+        </MockedProvider>,
+        container
+      ) // Finish render
+    // Locate rating button and prepare for click
+    const ratingStars = getByTestId(container, "rating-stars");
+    ratingStars.firstChild?.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+    await new Promise(resolve => setTimeout(resolve, 100)); // wait for response
+    }) // Finish act
+  
+    // Make assertions
+    expect(console.log).toHaveBeenCalledWith(confirmationText);
   })
 
   it("snapshot should be same as previous", () => {
