@@ -12,7 +12,7 @@ const mocks = [
   {
     request: {
       query: RATEGAME,
-      variables: { gameId: '8bTG0QD7/', rating: 1 }, //Mulig gameId må skrives gameID !
+      variables: { gameId: '8bTG0QD7/', rating: 1 },
     },
     result: { data: { rateGame } },
   },
@@ -36,16 +36,24 @@ afterEach(() => {
 
 describe("Testing Rating", () => {
   it("should render without crashing", () => {
+    // Generate test data
+    const testData = {
+      id: "8bTG0QD7/",
+      rating: 3,
+      numReviews: 666,
+      testFunction : (data: any) => {}      
+    }
+
     // Render component
     act(() => {
       ReactDOM.render(
         <MockedProvider>
           <ChakraProvider>
             <Rating
-              id={"8bTG0QD7/"}  
-              rating={3}
-              numReviews={666}
-              callbackOnRate={(data) => {}}
+              id={testData.id}
+              rating={testData.rating}
+              numReviews={testData.numReviews}
+              callbackOnRate={testData.testFunction}
             />
           </ChakraProvider>
         </MockedProvider>,
