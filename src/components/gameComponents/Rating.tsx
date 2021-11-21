@@ -11,8 +11,10 @@ interface RatingProps {
   callbackOnRate: (callbackData: any) => void;
 }
 
+
+
 //Mutation query for adding comment to game
-const RATEGAME = gql`
+export const RATEGAME = gql`
   mutation rateGame($gameId: String!, $rating: Int!) {
     rateGame(gameID: $gameId, rating: $rating) {
       id_odsp
@@ -68,6 +70,7 @@ const Rating = ({ id, rating, numReviews, callbackOnRate }: RatingProps) => {
                 style={{ marginLeft: "1" }}
                 color={i < rating ? "teal.500" : "gray.300"}
                 onClick={() => {
+
                   mutateFunction({ variables: { gameId: id, rating: i + 1 } });
                 }}
               />
