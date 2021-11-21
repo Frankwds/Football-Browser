@@ -35,13 +35,15 @@ Snipped PNG of final application:
 # Documentation
 
 **Automated testing of React Typescript applications**
-- In this project the group has worked on implementing systematic automated testing for backend and client from project 3. 
+In this project the group has worked on implementing systematic automated testing for backend and client from project 3. Tests vary based on the utility of each components, but usually either consider typing input into input-fields, or clicking on elements. Smoke tests, and snapshot tests are also included for all components. 
 
 From the process of implementing tests, many improvents have been made as a result. (litt mer her.)
 
+Done: 
 - Test location
-- Setup and teardown
-- Testing procedure (It)
+- Setup and teardown (beforeEach, afterEach)
+- Testing procedure (It, act, expect(), jest.fn() )
+- Mentioned smoke tests and snapshot tests
 
 **Test location**
 Since unit tests work with specific components it makes sense to place them close to the components themselves. Because of this tests are places either one of two places:
@@ -100,24 +102,6 @@ it("has a descriptive name for what is tested",  () => {
     )
 }
 ```
-
-### Generate test-data
-Test-data is generated at the start of every test.
-
-### Render components
-### Make assertions
-
-in the file it make sense to put them close to the 
-
-"smoke test"
-
-- React unit testing og Jest
-    - BeforeEach and AfterEach.
-    - Test modularity (each test being separate from others)
-    - Describe, it, act, ReactDOM.render(), expect(), container elements, 
-    - dispatchEvent
-    - jest.fn() for checking method calls
-    - Snapshots
     
 - Apollo-server-mockings
     - MockedProvider, Mocks, 
@@ -134,8 +118,9 @@ The integration tests we have written covers the following:
     - Commenting
     - Rating
     
- we 
-    22
+It has been covered by a total of 22 testcases divided on 8 tests where cypress mocks user interaction with the different elements of the page, awaits for the server to respond with data and asserts the resulting page.
+
+Every test has 
 
     - beforeEach -> cy.intercept -> cy.visit
     - cy.get -> cy.wait -> cy.expect
